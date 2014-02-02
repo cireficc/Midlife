@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionary>
+  <!--This is the base structure for every entry in the dictionary. Values on attributes are given
+    as explanations for the attributes. Though this is the structure of the finished product for each word, definition, context and context examples will be ommitted as they don't have a real effect on the application at this moment.-->
+  <Word word="The word in the dictionary (any word that would be defined)." aspirate="Whether or not the word starts with an aspirate h. Some adjectives that come before words that start with a non-aspirate h have an extra form (AdjectiveForms -&gt; na [non-aspirate]).">
+      <GrammaticalForm form="The grammatical form of the word is the grammatical context in which it is used. Forms may consist of a word in noun, adjective, adverb, exclamatory or other form. Each form (generally) has its own definition, as the meaning of the word changes in the way it is used." definition="The definition of the word in context of the grammatical form.">
+      </GrammaticalForm>
+    <ConjugationTables>
+      <NounForms ms="The masculin singular form of the noun." fs="The feminin singular form of the noun." mpl="The masculin plural form of the noun." fpl="The feminin plural form of the noun." gender="The gender of the noun. Determines what form the adjective that describes it needs to have."></NounForms>
+      <AdjectiveForms ms="The masculin singular form of the adjective." fs="The feminin singular form of the adjective." mpl="The masculin plural form of the adjective." fpl="The feminin plural form of the adjective." na="The non-aspirate form of the adjective, in the case where the adjective is followed by a non-aspirate word." location="Where the adjective is placed around the noun (before, after, or both)."></AdjectiveForms>
+      <VerbForms group="What group the verb belongs to; f (first), s (second), t (third) or e (exception)." auxillary="The auxillary verb taken by the verb; e (être) or a (avoir)" prepositions="A CSV list of valid prepositions this verb uses; for grammatical analysis." transitive="Whether or not the verb is transitive." pronominal="Whether or not the verb allows pronominal construction.">
+        <Indicative>
+          <Present fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Present>
+          <SimplePast fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></SimplePast>
+          <PresentPerfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></PresentPerfect>
+          <PastPerfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></PastPerfect>
+          <Imperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Imperfect>
+          <Pluperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Pluperfect>
+          <Future fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Future>
+          <PastFuture fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></PastFuture>
+        </Indicative>
+        <Subjunctive>
+          <Present fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Present>
+          <Past fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Past>
+          <Imperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Imperfect>
+          <Pluperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Pluperfect>
+        </Subjunctive>
+        <Conditional>
+          <Present fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Present>
+          <FirstPast fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></FirstPast>
+          <SecondPast fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></SecondPast>
+        </Conditional>
+        <Imperative>
+          <Present sps="(Tu) second person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural."></Present>
+          <Past sps="(Tu) second person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural."></Past>
+        </Imperative>
+        <Infinitive present="The present infinitive form of the verb." past="The past infinitive form of the verb."></Infinitive>
+        <Participle present="The present participle of the verb." past="The past partciple of the verb."></Participle>
+      </VerbForms>
+    </ConjugationTables>
+  </Word>
+</Dictionary>
