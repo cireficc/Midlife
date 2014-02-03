@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace dictionarySet
 {
 
-    class Dictionary
+    class Language
     {
 
         /*
@@ -52,9 +52,9 @@ namespace dictionarySet
          * 'être' --> vi (verb intransitive) "to be".
          * '(un) être' --> nm (noun masculin) "(a) being".
          */
-        public List<GrammaticalForms> forms { get; set; }
+        public List<GrammaticalForm> forms { get; set; }
 
-        public struct GrammaticalForms
+        public struct GrammaticalForm
         {
             // The grammatical identifier of the form (e.g., 'vi' or 'nm').
             public string form { get; set; }
@@ -80,19 +80,27 @@ namespace dictionarySet
          * 'fpl' (feminin plural)
          */
         public string gender { get; set; }
-        public string masculinSingular { get; set; }
-        public string femininSingular { get; set; }
-        public string masculinPlural { get; set; }
-        public string femininPlural { get; set; }
+        public string ms { get; set; }
+        public string fs { get; set; }
+        public string mpl { get; set; }
+        public string fpl { get; set; }
     }
 
     class AdjectiveTable
     {
-        public string masculinSingular { get; set; }
-        public string femininSingular { get; set; }
-        public string masculinPlural { get; set; }
-        public string femininPlural { get; set; }
-        public string nonAspirate { get; set; }
+        /*
+         * The gender of the adjective:
+         * 'ms' (masculin singular)
+         * 'fs' (feminin singular)
+         * 'mpl' (masculin plural)
+         * 'fpl' (feminin plural)
+         * 'na' (non-aspirate)
+         */
+        public string ms { get; set; }
+        public string fs { get; set; }
+        public string mpl { get; set; }
+        public string fpl { get; set; }
+        public string na { get; set; }
         /*
          * The location of the adjective around the noun:
          * 'b' (before)
@@ -127,155 +135,168 @@ namespace dictionarySet
          * conjugate the pronominal infinitive of the verb for lookup in the Dictionary.
          * This saves space over allocating a string of the conjugated pronominal infinitive.
          */
-        public bool pronominalForm { get; set; }
+        public bool pronominal { get; set; }
+
+        /*
+         * The subject of the verb determined by the markers:
+         * 'fps' (first person singular)
+         * 'sps' (second person singular)
+         * 'tps' (third person singular)
+         * 'fpp' (first person plural)
+         * 'spp' (second person plural)
+         * 'tpp' (third person plural)
+         * 'present' (present tense)
+         * 'past' (past tense)
+         * and their accompanying conjugations.
+         */
 
         struct IndicativePresent
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativeSimplePast
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativePresentPerfect
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativePastPerfect
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativeImperfect
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativePluperfect
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativeFuture
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct IndicativePastFuture
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
 
         struct SubjunctivePresent
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct SubjunctivePast
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct SubjunctiveImperfect
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct SubjunctivePluperfect
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct ConditionalPresent
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct ConditionalFirstPast
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct ConditionalSecondPast
         {
-            public string firstPersonSingular { get; set; }
-            public string secondPersonSingular { get; set; }
-            public string thirdPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
-            public string thirdPersonPlural { get; set; }
+            public string fps { get; set; }
+            public string sps { get; set; }
+            public string tps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
+            public string tpp { get; set; }
         }
         struct ImperativePresent
         {
-            public string secondPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
+            public string sps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
         }
         struct ImperativePast
         {
-            public string secondPersonSingular { get; set; }
-            public string firstPersonPlural { get; set; }
-            public string secondPersonPlural { get; set; }
+            public string sps { get; set; }
+            public string fpp { get; set; }
+            public string spp { get; set; }
         }
         struct Infinitive
         {

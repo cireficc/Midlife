@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Dictionary>
+  <!--This is the base structure for every entry in the dictionary. Values on attributes are given
+    as explanations for the attributes. Though this is the structure of the finished product for each Word, definition, context and context examples will be ommitted as they don't have a real effect on the application at this moment.-->
+  <Word word="The word in the dictionary (any word that would be defined)." aspirate="Whether or not the word starts with an aspirate h. Some adjectives that come before words that start with a non-aspirate h have an extra form (AdjectiveForms -&gt; na [non-aspirate]).">
+    <GrammaticalForm form="The grammatical form of the word is the grammatical context in which it is used. Forms may consist of a word in noun, adjective, adverb, exclamatory or other form." definition="The definition of the word in a certain grammatical form.">
+      <Context context="The context is a specific context in which the word is used. Examples would include the word &quot;bien&quot; in context of morality, quantity, beauty, intensity, and others. Context helps to describe different usages of the word." description="The description of the context is the meaning of the word in that particular context. Some contexts may be defined solely by examples, some may have a more general meaning with specific examples to help clarify usages.">
+        <Example usage="A usage is a particular phrase or example of the word in context of colloquial language the explains the word by example." explanation="An explanation is the explanation of a usage in a context. This is essentially a sub-definition of the word, as meaning changes within context and within usages."></Example>
+      </Context>
+    </GrammaticalForm>
+    <ConjugationTable>
+      <NounTable ms="The masculin singular form of the noun." fs="The feminin singular form of the noun." mpl="The masculin plural form of the noun." fpl="The feminin plural form of the noun." gender="The gender of the noun. Determines"></NounTable>
+      <AdjectiveTable ms="The masculin singular form of the adjective." fs="The feminin singular form of the adjective." mpl="The masculin plural form of the adjective." fpl="The feminin plural form of the adjective." na="The non-aspirate form of the adjective, in the case where the adjective is followed by a non-aspirate word." location="Where the adjective is placed around the noun (before, after, or both)."></AdjectiveTable>
+      <VerbTable group="What group the verb belongs to (1st, 2nd, 3rd or exception)." auxillary="The auxillary verb taken by the verb." prepositions="A CSV list of valid prepositions this verb uses; for grammatical analysis." transitive="Whether or not the verb is transitive." pronominal="The pronominal infinitive form of the verb, if the verb allows pronominal construction.">
+        <Indicative>
+          <Present fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Present>
+          <SimplePast fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></SimplePast>
+          <PresentPerfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></PresentPerfect>
+          <PastPerfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></PastPerfect>
+          <Imperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Imperfect>
+          <Pluperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Pluperfect>
+          <Future fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Future>
+          <PastFuture fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></PastFuture>
+        </Indicative>
+        <Subjunctive>
+          <Present fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Present>
+          <Past fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Past>
+          <Imperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Imperfect>
+          <Pluperfect fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Pluperfect>
+        </Subjunctive>
+        <Conditional>
+          <Present fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></Present>
+          <FirstPast fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></FirstPast>
+          <SecondPast fps="(Je) first person singular." sps="(Tu) second person singular." tps="(Il) third person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural." tpp="(Ils) third person plural."></SecondPast>
+        </Conditional>
+        <Imperative>
+          <Present sps="(Tu) second person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural."></Present>
+          <Past sps="(Tu) second person singular." fpp="(Nous) first person plural." spp="(Vous) second person plural."></Past>
+        </Imperative>
+        <Infinitive present="The present infinitive form of the verb." past="The past infinitive form of the verb."></Infinitive>
+        <Participle present="The present participle of the verb." past="The past partciple of the verb."></Participle>
+      </VerbTable>
+    </ConjugationTable>
+  </Word>
+  <Word word="être" aspirate="false">
+    <GrammaticalForm form="nm" definition="A being (e.g. animal, insect)."></GrammaticalForm>
+    <GrammaticalForm form="vi" definition="The be (a state of existence)."></GrammaticalForm>
+    <ConjugationTable>
+      <NounTable ms="être" fs="" mpl="êtres" fpl="" gender="m"></NounTable>
+      <VerbTable group="e" auxillary="a" prepositions="à, de, des, en" transitive="false" pronominal="false">
+        <Indicative>
+          <Present fps="suis" sps="es" tps="est" fpp="sommes" spp="êtes" tpp="sont"></Present>
+          <SimplePast fps="fus" sps="fus" tps="fut" fpp="fûmes" spp="fûtes" tpp="furent"></SimplePast>
+          <PresentPerfect fps="ai été" sps="as été" tps="a été" fpp="avons été" spp="avez été" tpp="ont été"></PresentPerfect>
+          <PastPerfect fps="eus été" sps="eus été" tps="eut été" fpp="eûmes été" spp="eûtes été" tpp="eurent été"></PastPerfect>
+          <Imperfect fps="étais" sps="étais" tps="était" fpp="étions" spp="étiez" tpp="étaient"></Imperfect>
+          <Pluperfect fps="avais été" sps="avais été" tps="avait été" fpp="avions été" spp="aviez été" tpp="avaient été"></Pluperfect>
+          <Future fps="serai" sps="seras" tps="sera" fpp="serons" spp="serez" tpp="seront"></Future>
+          <PastFuture fps="aurai été" sps="auras été" tps="aura été" fpp="aurons été" spp="aurez été" tpp="auront été"></PastFuture>
+        </Indicative>
+        <Subjunctive>
+          <Present fps="sois" sps="sois" tps="soit" fpp="soyons" spp="soyez" tpp="soient"></Present>
+          <Past fps="aie été" sps="aies été" tps="ait été" fpp="ayons été" spp="ayez été" tpp="aient été"></Past>
+          <Imperfect fps="fusse" sps="fusses" tps="fût" fpp="fussions" spp="fussiez" tpp="fussent"></Imperfect>
+          <Pluperfect fps="eusse été" sps="eusses été" tps="eût été" fpp="eussions été" spp="eussiez été" tpp="eussent été"></Pluperfect>
+        </Subjunctive>
+        <Conditional>
+          <Present fps="serais" sps="serais" tps="serait" fpp="serions" spp="seriez" tpp="seraient"></Present>
+          <FirstPast fps="aurais été" sps="aurais été" tps="aurait été" fpp="aurions été" spp="auriez été" tpp="auraient été"></FirstPast>
+          <SecondPast fps="eusse été" sps="eusses été" tps="eût été" fpp="eussions été" spp="eussiez été" tpp="eussent été"></SecondPast>
+        </Conditional>
+        <Imperative>
+          <Present sps="sois" fpp="soyons" spp="soyez"></Present>
+          <Past sps="aie été" fpp="ayons été" spp="ayez été"></Past>
+        </Imperative>
+        <Infinitive present="être" past="avoir été"></Infinitive>
+        <Participle present="étant" past="été"></Participle>
+      </VerbTable>
+    </ConjugationTable>
+  </Word>
+</Dictionary>

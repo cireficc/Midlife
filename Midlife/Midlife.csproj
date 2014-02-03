@@ -38,12 +38,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dict-FR.xml" />
-    <Content Include="Final Structure %28excluding phonetics%29.xml" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Dictionary.cs" />
     <Compile Include="Midlife.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Dict-FR_Standard.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
