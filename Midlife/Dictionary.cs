@@ -1,14 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace dictionarySet
+﻿namespace Language
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
-    class Language
+    class Global
+    {
+        public static char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
+    }
+
+    class ExtendedDictionary
     {
 
         /*
@@ -68,9 +72,23 @@ namespace dictionarySet
         public AdjectiveTable adjectiveTable { get; set; }
         // The table of verb conjugations, if the Word has a grammatical form of a verb.
         public VerbTable verbTable { get; set; }
+
+        public void printConjugationTables()
+        {
+            nounTable.printTable();
+            adjectiveTable.printTable();
+            verbTable.printTable();
+        }
     }
 
-    class NounTable
+    abstract class ConjugationTable
+    {
+        // If there are any properties that would eventually be shared among all conjugation
+        // types, they would go here.
+        public abstract void printTable();
+    }
+
+    class NounTable : ConjugationTable
     {
         /*
          * The gender of the noun:
@@ -84,9 +102,22 @@ namespace dictionarySet
         public string fs { get; set; }
         public string mpl { get; set; }
         public string fpl { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Noun Conjugation Table"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
+            Console.WriteLine(); Console.WriteLine();
+            Console.WriteLine("Gender            --> {0}", gender);
+            Console.WriteLine("Masculin singular --> {0}", ms);
+            Console.WriteLine("Feminin singular  --> {0}", fs);
+            Console.WriteLine("Masculin plural   --> {0}", mpl);
+            Console.WriteLine("Feminin plural    --> {0}", fpl);
+            Console.WriteLine(); Console.WriteLine();
+        }
     }
 
-    class AdjectiveTable
+    class AdjectiveTable : ConjugationTable
     {
         /*
          * The gender of the adjective:
@@ -108,9 +139,23 @@ namespace dictionarySet
          * 'n' (neutral) --> the adjective can come before OR after the noun.
          */
         public char location { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Adjective Conjugation Table"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
+            Console.WriteLine(); Console.WriteLine();
+            Console.WriteLine("Masculin singular --> {0}", ms);
+            Console.WriteLine("Feminin singular  --> {0}", fs);
+            Console.WriteLine("Masculin plural   --> {0}", mpl);
+            Console.WriteLine("Feminin plural    --> {0}", fpl);
+            Console.WriteLine("Non-aspirate      --> {0}", na);
+            Console.WriteLine("Location          --> {0}", location);
+            Console.WriteLine(); Console.WriteLine();
+        }
     }
 
-    class VerbTable
+    class VerbTable : ConjugationTable
     {
         /* 
          * The group the verb belongs to:
@@ -149,164 +194,577 @@ namespace dictionarySet
          * 'past' (past tense)
          * and their accompanying conjugations.
          */
+        
+        // All of the different conjugation types are instantiated
+        // when a VerbTable is instantiated.
 
-        struct IndicativePresent
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativeSimplePast
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativePresentPerfect
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativePastPerfect
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativeImperfect
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativePluperfect
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativeFuture
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
-        struct IndicativePastFuture
-        {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
-        }
+        public IndicativePresent indicativePresent = new IndicativePresent();
+        public IndicativeSimplePast indicativeSimplePast = new IndicativeSimplePast();
+        public IndicativePresentPerfect indicativePresentPerfect = new IndicativePresentPerfect();
+        public IndicativePastPerfect indicativePastPerfect = new IndicativePastPerfect();
+        public IndicativeImperfect indicativeImperfect = new IndicativeImperfect();
+        public IndicativePluperfect indicativePluperfect = new IndicativePluperfect();
+        public IndicativeFuture indicativeFuture = new IndicativeFuture();
+        public IndicativePastFuture indicativePastFuture = new IndicativePastFuture();
+        public SubjunctivePresent subjunctivePresent = new SubjunctivePresent();
+        public SubjunctivePast subjunctivePast = new SubjunctivePast();
+        public SubjunctiveImperfect subjunctiveImperfect = new SubjunctiveImperfect();
+        public SubjunctivePluperfect subjunctivePluperfect = new SubjunctivePluperfect();
+        public ConditionalPresent conditionalPresent = new ConditionalPresent();
+        public ConditionalFirstPast conditionalFirstPast = new ConditionalFirstPast();
+        public ConditionalSecondPast conditionalSecondPast = new ConditionalSecondPast();
+        public ImperativePresent imperativePresent = new ImperativePresent();
+        public ImperativePast imperativePast = new ImperativePast();
+        public Infinitive infinitive = new Infinitive();
+        public Participle participle = new Participle();
 
-        struct SubjunctivePresent
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Verb Conjugation Table"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
+            Console.WriteLine(); Console.WriteLine();
+
+            indicativePresent.printTable();
+            indicativeSimplePast.printTable();
+            indicativePresentPerfect.printTable();
+            indicativePastPerfect.printTable();
+            indicativeImperfect.printTable();
+            indicativePluperfect.printTable();
+            indicativeFuture.printTable();
+            indicativePastFuture.printTable();
+            subjunctivePresent.printTable();
+            subjunctivePast.printTable();
+            subjunctiveImperfect.printTable();
+            subjunctivePluperfect.printTable();
+            conditionalPresent.printTable();
+            conditionalFirstPast.printTable();
+            conditionalSecondPast.printTable();
+            imperativePresent.printTable();
+            imperativePast.printTable();
+            infinitive.printTable();
+            participle.printTable();
         }
-        struct SubjunctivePast
+    }
+
+    abstract class Indicative
+    {
+        // Any common elements that indicative tenses share.
+        public abstract string fps { get; set; }
+        public abstract string sps { get; set; }
+        public abstract string tps { get; set; }
+        public abstract string fpp { get; set; }
+        public abstract string spp { get; set; }
+        public abstract string tpp { get; set; }
+
+        public abstract void printTable();
+    }
+
+    abstract class Subjunctive
+    {
+        // Any common elements that subjunctive tenses share.
+        public abstract string fps { get; set; }
+        public abstract string sps { get; set; }
+        public abstract string tps { get; set; }
+        public abstract string fpp { get; set; }
+        public abstract string spp { get; set; }
+        public abstract string tpp { get; set; }
+
+        public abstract void printTable();
+    }
+
+    abstract class Conditional
+    {
+        // Any common elements that conditional tenses share.
+        public abstract string fps { get; set; }
+        public abstract string sps { get; set; }
+        public abstract string tps { get; set; }
+        public abstract string fpp { get; set; }
+        public abstract string spp { get; set; }
+        public abstract string tpp { get; set; }
+
+        public abstract void printTable();
+    }
+
+    abstract class Imperative
+    {
+        // Any common elements that imperative tenses share.
+        public abstract string sps { get; set; }
+        public abstract string fpp { get; set; }
+        public abstract string spp { get; set; }
+
+        public abstract void printTable();
+    }
+
+    class IndicativePresent : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Present"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else 
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct SubjunctiveImperfect
+    }
+
+    class IndicativeSimplePast : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Simple Past"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct SubjunctivePluperfect
+    }
+
+    class IndicativePresentPerfect : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Present Perfect"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=========================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct ConditionalPresent
+    }
+
+    class IndicativePastPerfect : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Past Perfect"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct ConditionalFirstPast
+    }
+
+    class IndicativeImperfect : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Imperfect"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "===================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct ConditionalSecondPast
+    }
+
+    class IndicativePluperfect : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string fps { get; set; }
-            public string sps { get; set; }
-            public string tps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
-            public string tpp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Pluperfect"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "====================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct ImperativePresent
+    }
+
+    class IndicativeFuture : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string sps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Future"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct ImperativePast
+    }
+
+    class IndicativePastFuture : Indicative
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string sps { get; set; }
-            public string fpp { get; set; }
-            public string spp { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Past Future"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct Infinitive
+    }
+
+    class SubjunctivePresent : Subjunctive
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string present { get; set; }
-            public string past { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Present"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "==================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
         }
-        struct Participle
+    }
+
+    class SubjunctivePast : Subjunctive
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
         {
-            public string present { get; set; }
-            public string past { get; set; }
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Past"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "================"));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
+        }
+    }
+
+    class SubjunctiveImperfect : Subjunctive
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Imperfect"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "====================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
+        }
+    }
+
+    class SubjunctivePluperfect : Subjunctive
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Pluperfect"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
+        }
+    }
+
+    class ConditionalPresent : Conditional
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional Present"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "==================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
+        }
+    }
+
+    class ConditionalFirstPast : Conditional
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional First Past"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
+        }
+    }
+
+    class ConditionalSecondPast : Conditional
+    {
+        public override string fps { get; set; }
+        public override string sps { get; set; }
+        public override string tps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+        public override string tpp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional Second Past"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================="));
+            Console.WriteLine();
+            if (Global.vowels.Contains('x'))
+                Console.WriteLine("J'         --> {0}", fps);
+            else
+                Console.WriteLine("Je         --> {0}", fps);
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Il/Elle/On --> {0}", tps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine("Ils/Elles  --> {0}", tpp);
+            Console.WriteLine();
+        }
+    }
+
+    class ImperativePresent : Imperative
+    {
+        public override string sps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Imperative Present"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=================="));
+            Console.WriteLine();
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine();
+        }
+    }
+
+    class ImperativePast : Imperative
+    {
+        public override string sps { get; set; }
+        public override string fpp { get; set; }
+        public override string spp { get; set; }
+
+        public override void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Imperative Past"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "==============="));
+            Console.WriteLine();
+            Console.WriteLine("Tu         --> {0}", sps);
+            Console.WriteLine("Nous       --> {0}", fpp);
+            Console.WriteLine("Vous       --> {0}", spp);
+            Console.WriteLine();
+        }
+    }
+
+    class Infinitive
+    {
+        public string present { get; set; }
+        public string past { get; set; }
+
+        public void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Infinitive"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=========="));
+            Console.WriteLine();
+            Console.WriteLine("Present    --> {0}", present);
+            Console.WriteLine("Past       --> {0}", past);
+            Console.WriteLine();
+        }
+    }
+
+    class Participle
+    {
+        public string present { get; set; }
+        public string past { get; set; }
+
+        public void printTable()
+        {
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Participle"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=========="));
+            Console.WriteLine();
+            Console.WriteLine("Present    --> {0}", present);
+            Console.WriteLine("Past       --> {0}", past);
+            Console.WriteLine();
         }
     }
 }
