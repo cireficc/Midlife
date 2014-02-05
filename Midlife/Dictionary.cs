@@ -172,7 +172,8 @@
          */
         public char auxillary { get; set; }
         // A list of grammatically-valid prepositions the verb can take.
-        public string[] prepositions { get; set; }
+        //changed to list<string> type 2/14/14 Daniel
+        public List<string> prepositions { get; set; }
         // Whether or not the verb is transitive.
         public bool transitive { get; set; }
         /*

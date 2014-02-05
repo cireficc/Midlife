@@ -23,7 +23,7 @@
             //w.verbTable.indicativePresent.fps = "ai";
             // Test the output. It works as expected.
             w.printConjugationTables();
-            // Read the output so the console window stays open.
+            // Read the output so the console window stays open.            
             Console.Read();
         }
     }
