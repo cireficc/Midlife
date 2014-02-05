@@ -5,9 +5,13 @@
   <Word word="The word in the dictionary (any word that would be defined)." aspirate="Whether or not the word starts with an aspirate h. Some adjectives that come before words that start with a non-aspirate h have an extra form (AdjectiveForms -&gt; na [non-aspirate]).">
     <GrammaticalForms>
       <GrammaticalForm form="The grammatical form of the word is the grammatical context in which it is used. Forms may consist of a word in noun, adjective, adverb, exclamatory or other form." definition="The definition of the word in a certain grammatical form.">
-        <Context context="The context is a specific context in which the word is used. Examples would include the word &quot;bien&quot; in context of morality, quantity, beauty, intensity, and others. Context helps to describe different usages of the word." description="The description of the context is the meaning of the word in that particular context. Some contexts may be defined solely by examples, some may have a more general meaning with specific examples to help clarify usages.">
-          <Example usage="A usage is a particular phrase or example of the word in context of colloquial language the explains the word by example." explanation="An explanation is the explanation of a usage in a context. This is essentially a sub-definition of the word, as meaning changes within context and within usages."></Example>
-        </Context>
+        <Contexts>
+          <Context context="The context is a specific context in which the word is used. Examples would include the word &quot;bien&quot; in context of morality, quantity, beauty, intensity, and others. Context helps to describe different usages of the word." description="The description of the context is the meaning of the word in that particular context. Some contexts may be defined solely by examples, some may have a more general meaning with specific examples to help clarify usages.">
+            <Examples>
+              <Example usage="A usage is a particular phrase or example of the word in context of colloquial language the explains the word by example." explanation="An explanation is the explanation of a usage in a context. This is essentially a sub-definition of the word, as meaning changes within context and within usages."></Example>
+            </Examples>
+          </Context>
+        </Contexts>
       </GrammaticalForm>
     </GrammaticalForms>
     <ConjugationTables>
