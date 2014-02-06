@@ -9,6 +9,7 @@
 
     class Global
     {
+        // List will need to be extended to include accented vowels
         public static char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
     }
 
@@ -83,8 +84,6 @@
 
     abstract class ConjugationTable
     {
-        // If there are any properties that would eventually be shared among all conjugation
-        // types, they would go here.
         public abstract void printTable();
     }
 
@@ -96,8 +95,9 @@
          * 'fs' (feminin singular)
          * 'mpl' (masculin plural)
          * 'fpl' (feminin plural)
+         * gender --> 'm' (masculin), 'f' (feminin), 'b' (both, m & f)
          */
-        public string gender { get; set; }
+        public char gender { get; set; }
         public string ms { get; set; }
         public string fs { get; set; }
         public string mpl { get; set; }
@@ -105,7 +105,7 @@
 
         public override void printTable()
         {
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Noun Conjugation Table"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Noun Inflection Table"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
             Console.WriteLine(); Console.WriteLine();
             Console.WriteLine("Gender            --> {0}", gender);
@@ -142,7 +142,7 @@
 
         public override void printTable()
         {
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Adjective Conjugation Table"));
+            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Adjective Inflection Table"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
             Console.WriteLine(); Console.WriteLine();
             Console.WriteLine("Masculin singular --> {0}", ms);
@@ -249,61 +249,51 @@
 
     abstract class Indicative
     {
-        // Any common elements that indicative tenses share.
-        public abstract string fps { get; set; }
-        public abstract string sps { get; set; }
-        public abstract string tps { get; set; }
-        public abstract string fpp { get; set; }
-        public abstract string spp { get; set; }
-        public abstract string tpp { get; set; }
+        public string fps { get; set; }
+        public string sps { get; set; }
+        public string tps { get; set; }
+        public string fpp { get; set; }
+        public string spp { get; set; }
+        public string tpp { get; set; }
 
         public abstract void printTable();
     }
 
     abstract class Subjunctive
     {
-        // Any common elements that subjunctive tenses share.
-        public abstract string fps { get; set; }
-        public abstract string sps { get; set; }
-        public abstract string tps { get; set; }
-        public abstract string fpp { get; set; }
-        public abstract string spp { get; set; }
-        public abstract string tpp { get; set; }
+        public string fps { get; set; }
+        public string sps { get; set; }
+        public string tps { get; set; }
+        public string fpp { get; set; }
+        public string spp { get; set; }
+        public string tpp { get; set; }
 
         public abstract void printTable();
     }
 
     abstract class Conditional
     {
-        // Any common elements that conditional tenses share.
-        public abstract string fps { get; set; }
-        public abstract string sps { get; set; }
-        public abstract string tps { get; set; }
-        public abstract string fpp { get; set; }
-        public abstract string spp { get; set; }
-        public abstract string tpp { get; set; }
+        public string fps { get; set; }
+        public string sps { get; set; }
+        public string tps { get; set; }
+        public string fpp { get; set; }
+        public string spp { get; set; }
+        public string tpp { get; set; }
 
         public abstract void printTable();
     }
 
     abstract class Imperative
     {
-        // Any common elements that imperative tenses share.
-        public abstract string sps { get; set; }
-        public abstract string fpp { get; set; }
-        public abstract string spp { get; set; }
+        public string sps { get; set; }
+        public string fpp { get; set; }
+        public string spp { get; set; }
 
         public abstract void printTable();
     }
 
     class IndicativePresent : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -325,12 +315,6 @@
 
     class IndicativeSimplePast : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -352,12 +336,6 @@
 
     class IndicativePresentPerfect : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -379,12 +357,6 @@
 
     class IndicativePastPerfect : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -406,12 +378,6 @@
 
     class IndicativeImperfect : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -433,12 +399,6 @@
 
     class IndicativePluperfect : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -460,12 +420,6 @@
 
     class IndicativeFuture : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -487,12 +441,6 @@
 
     class IndicativePastFuture : Indicative
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -514,12 +462,6 @@
 
     class SubjunctivePresent : Subjunctive
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -541,12 +483,6 @@
 
     class SubjunctivePast : Subjunctive
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -568,12 +504,6 @@
 
     class SubjunctiveImperfect : Subjunctive
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -595,12 +525,6 @@
 
     class SubjunctivePluperfect : Subjunctive
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -622,12 +546,6 @@
 
     class ConditionalPresent : Conditional
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -649,12 +567,6 @@
 
     class ConditionalFirstPast : Conditional
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -676,12 +588,6 @@
 
     class ConditionalSecondPast : Conditional
     {
-        public override string fps { get; set; }
-        public override string sps { get; set; }
-        public override string tps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
-        public override string tpp { get; set; }
 
         public override void printTable()
         {
@@ -703,9 +609,6 @@
 
     class ImperativePresent : Imperative
     {
-        public override string sps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
 
         public override void printTable()
         {
@@ -721,9 +624,6 @@
 
     class ImperativePast : Imperative
     {
-        public override string sps { get; set; }
-        public override string fpp { get; set; }
-        public override string spp { get; set; }
 
         public override void printTable()
         {

@@ -20,7 +20,7 @@
             w.nounTable = new Language.NounTable();
             w.adjectiveTable = new Language.AdjectiveTable();
             w.verbTable = new Language.VerbTable();
-            //w.verbTable.indicativePresent.fps = "ai";
+            w.verbTable.indicativePresent.fps = "ai";
             // Test the output. It works as expected.
             w.printConjugationTables();
             // Read the output so the console window stays open.            
