@@ -241,7 +241,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Conditional Second Pass" Margin="20,0,0,0">
+                                            <Expander Header="Conditional Second Past" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
@@ -347,7 +347,7 @@
                                         
                                         <StackPanel>
                                             
-                                            <Expander Header="Inicative" Margin="20,0,0,0">
+                                            <Expander Header="Indicative" Margin="20,0,0,0">
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPP: "/>
@@ -381,7 +381,7 @@
                                                 </StackPanel>
                                             </Expander>
 
-                                            <Expander Header="Inicative Future" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Future" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
@@ -417,7 +417,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Inicative Past Future" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Past Future" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
@@ -453,7 +453,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Inicative Past Perfect" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Past Perfect" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
@@ -489,7 +489,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Inicative Pluperfect" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Pluperfect" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
@@ -525,7 +525,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Inicative Present" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Present" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
@@ -561,7 +561,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Inicative Present Perfect" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Present Perfect" Margin="20,0,0,0">
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPP: "/>
@@ -596,7 +596,7 @@
 
                                             </Expander>
 
-                                            <Expander Header="Inicative Simple Past" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Simple Past" Margin="20,0,0,0">
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPP: "/>
@@ -637,12 +637,12 @@
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Past: "/>
-                                            <TextBox Name="inf_pastTextBox" Width="300"/>
+                                            <TextBox Name="infi_pastTextBox" Width="300"/>
                                         </StackPanel>
 
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="Present: "/>
-                                            <TextBox Name="inf_presentTextBox" Width="300"/>
+                                            <TextBox Name="infi_presentTextBox" Width="300"/>
                                         </StackPanel>
                                         </StackPanel>
 

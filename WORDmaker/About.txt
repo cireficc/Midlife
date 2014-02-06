@@ -9,5 +9,45 @@ Objective:
     to effeicntly add Language.Word objects to an xml file that will grow to between 50,000 and 100,000 entries. should also be able to display list of entered words, check for duplicates,
 	and later browse the word details in a dialogbox.
 
-v.01: started 2/4/14. simple UI with collapsable textboxes for conjuctiontables
+v.01: started 2/4/14. simple UI with collapsable Text boxes this version does not really do anything but allow you to test the UI design
+
+Key points:
+
+use TAB and Shift+TAB to move up and down the textboxes. 
+
+use ENTER to open and close the expanders 
+
+TextBox names should be obvious. if they are not please see table below. if that doesn't help Contact radiospace83@gmail.com
+
+TextBox names for conjuction table are as follows:
+	adj_   = Adjective Table 
+	noun_  = Noun Table
+	c_     = Conditional
+	cp_    = Conditional Present
+	cfp_   = Conditional First Past
+	csp_   = Conditional Second Past
+	i_     = Imperative
+	ipr_   = Imperative Present
+	ipa_   = Imperative Past
+	in_    = Indicative 
+	inf_   = Indicative Future
+	inpf_  = Indicative Past Future
+	inpp_  = Indicative Past Perfect
+	inpl_  = Indicative Pluperfect
+	inpr_  = Indicative Present
+	inprp_ = Indicative Present Perfect
+	insp_  = Indicative Simple Past
+	infi_  = Infinitive 
+	part_  = Participle
+	s_     = Subjunctive
+	si_    = Subjunctive Imperfect
+	spa_   = Subjunctive Past
+	spl_   = Subjunctive Pluperfect
+	spr_   = Subjunctive Perfect
+
+		each of these aere followed by the convention used in dictionary.cs then the word TextBox
+		if you encounter problems please correct or contact radiospace83@gmail.com
+	
+
+
 		
