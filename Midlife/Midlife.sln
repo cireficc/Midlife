@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Midlife", "Midlife.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WORDmaker", "..\WORDmaker\WORDmaker.csproj", "{19CCDB72-FD9E-42F2-BE15-C59DDAA6DDE7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "objectsTOxml", "..\objectsTOxml\objectsTOxml.csproj", "{D2A591DE-9E1C-4CDF-8751-1339EE77AF4E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{19CCDB72-FD9E-42F2-BE15-C59DDAA6DDE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19CCDB72-FD9E-42F2-BE15-C59DDAA6DDE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19CCDB72-FD9E-42F2-BE15-C59DDAA6DDE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2A591DE-9E1C-4CDF-8751-1339EE77AF4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2A591DE-9E1C-4CDF-8751-1339EE77AF4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2A591DE-9E1C-4CDF-8751-1339EE77AF4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2A591DE-9E1C-4CDF-8751-1339EE77AF4E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
