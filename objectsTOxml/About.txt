@@ -1,0 +1,5 @@
+﻿this program is a PlayGround
+
+do what you want with it to test concepts and experiment
+
+this project will be deleted when playing with xml serialization is no longer needed.

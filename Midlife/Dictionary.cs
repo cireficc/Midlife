@@ -17,6 +17,15 @@
     {
 
         /*
+         Daniel de la Rosa 2/6/2014:
+         * Changes:
+         *  public Constructors
+         *      I have/will added public constructors marked with comment "{//DD [date]"
+         *          NOTE: the .net xml serializer requires parameterless constructors and all feilds you wish to write to xml be publicly writable   
+         */
+
+
+        /*
          * The spell-checking wordlist. Will be used in spell-checking as well
          * as in the parsing process. Structure is as follows:
          * 
