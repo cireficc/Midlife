@@ -1,25 +1,25 @@
-﻿WORDmaker v.01 
+﻿WORDmaker v.01
 by Daniel de la Rosa (aka. RadioSpace)
 
 Purpose: 
-	To enter data of type Language.Word into an XML file for use by the Midlife Language.ExtendedDictionary. this program is not intented for end users of the dictionary.
-	its intention is for use by the developer of Midlife and its dictionary.
+	To enter data of type Language.Word into an XML file for use by the Midlife Language.ExtendedDictionary. This program is not intended for end users of the application.
+	Its intention is for use by the developer of Midlife and its dictionary.
 
 Objective:
-    to effeicntly add Language.Word objects to an xml file that will grow to between 50,000 and 100,000 entries. should also be able to display list of entered words, check for duplicates,
-	and later browse the word details in a dialogbox.
+    To effeicntly add Language.Word objects to an XML file that will grow to between 50,000 and 100,000 entries. Should also be able to display list of entered words, check for duplicates,
+	and later browse the word details in a dialogue box.
 
-v.01: started 2/4/14. simple UI with collapsable Text boxes this version does not really do anything but allow you to test the UI design
+v.01: started 2/4/14. Simple UI with collapsable Text boxes this version does not really do anything but allow you to test the UI design.
 
 Key points:
 
-use TAB and Shift+TAB to move up and down the textboxes. 
+Use TAB and Shift+TAB to move up and down the textboxes. 
 
-use ENTER to open and close the expanders 
+Use ENTER to open and close the expanders.
 
-TextBox names should be obvious. if they are not please see table below. if that doesn't help Contact radiospace83@gmail.com
+TextBox names should be obvious. If they are not please see table below. If that doesn't help contact radiospace83@gmail.com.
 
-TextBox names for conjuction table are as follows:
+TextBox names for conjugation tables are as follows:
 	adj_   = Adjective Table 
 	noun_  = Noun Table
 	c_     = Conditional
@@ -45,8 +45,8 @@ TextBox names for conjuction table are as follows:
 	spl_   = Subjunctive Pluperfect
 	spr_   = Subjunctive Perfect
 
-		each of these aere followed by the convention used in dictionary.cs then the word TextBox
-		if you encounter problems please correct or contact radiospace83@gmail.com
+		Each of these aere followed by the convention used in Dictionary.cs then the word TextBox.
+		If you encounter problems please correct or contact radiospace83@gmail.com.
 	
 
 

@@ -18,7 +18,8 @@ using System.Xml.Serialization;
 
 namespace WORDmaker
 {
-    using GrammaticalForm = Word.GrammaticalForm;
+    // CC 2/7/14 updated namespace from Word.GrammaticalForm
+    using GrammaticalForm = Language.GrammaticalForm;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -57,7 +58,8 @@ namespace WORDmaker
         //occurs when the add grammatical form button is pressed
         private void addgrammerformButton_Click(object sender, RoutedEventArgs e)
         {
-            currentWord.forms.Add(new Word.GrammaticalForm()             
+            // CC 2/7/14 updated namespace from Word.GrammaticalForm
+            currentWord.forms.Add(new Language.GrammaticalForm()             
             { //grab text from fields
                 definition = grammerdefinitionTextBox.Text ,
                 form = grammerformTextBox.Text

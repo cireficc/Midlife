@@ -1,16 +1,16 @@
-﻿    /*
-         Daniel de la Rosa 2/6/2014 :
-         * Changes:
-         *  public Constructors
-         *      I have/will added public constructors marked with comment "{//DD [date]"
-         *          NOTE: the .net xml serializer requires parameterless constructors 
-         *          and all feilds you wish to write to xml be publicly writable
-         *          and the class be public (so all classes here must be public)   
-     *         
-   */
+﻿/*
+     Daniel de la Rosa 2/6/2014 :
+     * Changes:
+     *  public Constructors
+     *      I have/will added public constructors marked with comment "{//DD [date]"
+     *          NOTE: the .net xml serializer requires parameterless constructors 
+     *          and all feilds you wish to write to xml be publicly writable
+     *          and the class be public (so all classes here must be public)   
+ *         
+*/
 
 
-    namespace Language
+namespace Language
 {
     using System;
     using System.Collections.Generic;
@@ -21,8 +21,11 @@
 
     class Global
     {
-        // List will need to be extended to include accented vowels
-        public static char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
+        /*
+         * This list is for displaying conjugations correctly. It will also be used in grammatical analysis,
+         * to see if the user formed the conjugation correctly. Needs to be extended to include accented vowels.
+         */
+        public static readonly char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
     }
 
     public class ExtendedDictionary
@@ -32,7 +35,7 @@
             wordList = new SortedDictionary<string, List<WordForm>>();
             dictionary = new SortedDictionary<string, Word>();
         }
-        
+
 
 
         /*
@@ -91,15 +94,6 @@
          */
         public List<GrammaticalForm> forms { get; set; }
 
-
-        public struct GrammaticalForm
-        {            
-            // The grammatical identifier of the form (e.g., 'vi' or 'nm').
-            public string form { get; set; }
-            // The definition (meaning) of the Word in a particular form.
-            public string definition { get; set; }
-        }
-
         // The table of noun conjugations, if the Word has a grammatical form of a noun.
         public NounTable nounTable { get; set; }
         // The table of adjective conjugations, if the Word has a grammatical form of an adjective.
@@ -115,11 +109,59 @@
         }
     }
 
+    public class GrammaticalForm
+    {
+        public GrammaticalForm()
+        {
+            form = "";
+            definition = "";
+            contexts = new List<Context>();
+        }
+        // The grammatical identifier of the form (e.g., 'vi' or 'nm').
+        public string form { get; set; }
+        // The definition (meaning) of the Word in a particular form.
+        public string definition { get; set; }
+        public List<Context> contexts { get; set; }
+    }
+
+    public class Context
+    {
+        public Context()
+        {
+            context = "";
+            description = "";
+
+            examples = new List<Example>();
+        }
+
+        // The context in which the word is used (in this grammatical form)
+        public string context { get; set; }
+        // The description (definition) of the word in this context
+        public string description { get; set; }
+        // A list of examples (usages and explanations) that help to define the context
+        public List<Example> examples { get; set; }
+
+    }
+
+    public class Example
+    {
+        public Example()
+        {
+            // A particular phrase or example of the word in context
+            usage = "";
+            // The explanation of the usage in context
+            explanation = "";
+        }
+
+        public string usage { get; set; }
+        public string explanation { get; set; }
+    }
+
     public abstract class ConjugationTable
     {
         public ConjugationTable()
         {//DD 020614
-        
+
         }
 
         public abstract void printTable();
@@ -138,8 +180,8 @@
             mpl = "";
             fpl = "";
         }
-        
-        public NounTable(char GENDER,string MS,string FS,string MPL,string FPL)
+
+        public NounTable(char GENDER, string MS, string FS, string MPL, string FPL)
             : base()
         {//DD 020614
             //check for valid input
@@ -151,7 +193,7 @@
                 mpl = MPL;
                 fpl = FPL;
             }
-            else throw new ArgumentException("Invalid GENDER. Please use only 'm', 'f', or 'b'");
+            else throw new ArgumentException("Invalid GENDER. Please only use 'm', 'f', or 'b'");
         }
 
 
@@ -199,7 +241,7 @@
             location = 'n';
         }
 
-        public AdjectiveTable(string MS,string FS,string MPL,string FPL,string NA,char LOCATION)
+        public AdjectiveTable(string MS, string FS, string MPL, string FPL, string NA, char LOCATION)
             : base()
         {//DD 020614
             //check for valid input
@@ -207,11 +249,12 @@
             {//LOCATION is valid
                 ms = MS;
                 fs = FS;
+                mpl = MPL;
                 fpl = FPL;
                 na = NA;
                 location = LOCATION;
             }//throw exception if Location is not valid
-            else throw new ArgumentException("Invalid LOCATION. Please use only use 'b','a',or 'n'");
+            else throw new ArgumentException("Invalid LOCATION. Please only use 'b', 'a', or 'n'");
         }
 
 
@@ -234,7 +277,7 @@
          * 'b' (before)
          * 'a' (after)
          * 'n' (neutral) --> the adjective can come before OR after the noun.
-         */        
+         */
         public char location { get; set; }
 
         public override void printTable()
@@ -256,7 +299,7 @@
     {
 
         static readonly char[] ValidGroup = new char[] { 'f', 's', 't', 'e' };
-        static readonly char[] ValidAUX = new char[] { 'e','a'};
+        static readonly char[] ValidAUX = new char[] { 'e', 'a' };
 
         public VerbTable()
             : base()
@@ -269,7 +312,7 @@
             pronominal = false;
         }
 
-        public VerbTable(char GROUP,char AUX,bool TRANSITIVE,bool PRONOMINAL,params string[] PREPOSITIONS)
+        public VerbTable(char GROUP, char AUX, bool TRANSITIVE, bool PRONOMINAL, params string[] PREPOSITIONS)
             : base()
         {//DD 020614
             if (VerbTable.ValidGroup.Contains(GROUP) && VerbTable.ValidAUX.Contains(AUX))
@@ -323,7 +366,7 @@
          * 'past' (past tense)
          * and their accompanying conjugations.
          */
-        
+
         // All of the different conjugation types are instantiated
         // when a VerbTable is instantiated.
 
@@ -393,7 +436,7 @@
             spp = "";
             tpp = "";
         }
-        public Indicative(string FPS,string SPS, string TPS, string FPP, string SPP, string TPP)
+        public Indicative(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
         {//DD020614
             fps = FPS;
             sps = SPS;
@@ -464,7 +507,7 @@
             tps = TPS;
             fpp = FPP;
             spp = SPP;
-            tpp = TPP;        
+            tpp = TPP;
         }
 
         public abstract void printTable();
@@ -483,7 +526,7 @@
             spp = "";
         }
 
-        public Imperative(string SPS,string FPP,string SPP)
+        public Imperative(string SPS, string FPP, string SPP)
         {//DD020614
             spp = SPS;
             fpp = FPP;
@@ -503,13 +546,13 @@
         }
 
         public IndicativePresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS,SPS,TPS,FPP,SPP,TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
         {//DD 020614 
-        
-        } 
+
+        }
 
 
-            
+
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Present"));
@@ -517,7 +560,7 @@
             Console.WriteLine();
             if (Global.vowels.Contains('x'))
                 Console.WriteLine("J'         --> {0}", fps);
-            else 
+            else
                 Console.WriteLine("Je         --> {0}", fps);
             Console.WriteLine("Tu         --> {0}", sps);
             Console.WriteLine("Il/Elle/On --> {0}", tps);
@@ -533,14 +576,14 @@
         public IndicativeSimplePast()
             : base()
         {//DD 020614
-        
+
         }
 
         public IndicativeSimplePast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
             : base(FPS, SPS, TPS, FPP, SPP, TPP)
         {//DD 020614
-        
-        }        
+
+        }
 
         public override void printTable()
         {
@@ -574,7 +617,7 @@
         {//DD 020614
 
 
-        }  
+        }
 
         public override void printTable()
         {
@@ -599,13 +642,13 @@
         public IndicativePastPerfect()
             : base()
         {//DD 020614 
-        
+
         }
 
         public IndicativePastPerfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
             : base(FPS, SPS, TPS, FPP, SPP, TPP)
         {//DD 020614 
-        
+
         }
         public override void printTable()
         {
@@ -630,13 +673,13 @@
         public IndicativeImperfect()
             : base()
         {//DD 020614
-        
+
         }
 
         public IndicativeImperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
             : base(FPS, SPS, TPS, FPP, SPP, TPP)
         {//DD 020614
-        
+
         }
 
 
@@ -693,13 +736,13 @@
         public IndicativeFuture()
             : base()
         {//DD 020614 
-        
+
         }
 
         public IndicativeFuture(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
             : base(FPS, SPS, TPS, FPP, SPP, TPP)
         {//DD 020614
-        
+
         }
 
         public override void printTable()
@@ -726,13 +769,13 @@
         public IndicativePastFuture()
             : base()
         {//DD 020614
-        
+
         }
 
         public IndicativePastFuture(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
             : base(FPS, SPS, TPS, FPP, SPP, TPP)
         {//DD 020614
-        
+
         }
 
         public override void printTable()
@@ -758,13 +801,13 @@
         public SubjunctivePresent()
             : base()
         { //DD 020614
-            
+
         }
 
         public SubjunctivePresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
             : base(FPS, SPS, TPS, FPP, SPP, TPP)
         { //DD 020614
-        
+
         }
 
         public override void printTable()
@@ -924,7 +967,7 @@
             : base()
         {//DD 020614
 
-            
+
 
         }
 
@@ -934,7 +977,7 @@
 
         }
 
-        
+
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional First Past"));
@@ -994,7 +1037,7 @@
         public ImperativePresent()
             : base()
         {//DD 020614
-        
+
         }
 
         public ImperativePresent(string SPS, string FPP, string SPP)
@@ -1022,7 +1065,7 @@
         public ImperativePast()
             : base()
         {//DD 020614
-        
+
         }
 
         public ImperativePast(string SPS, string FPP, string SPP)
@@ -1048,7 +1091,7 @@
         public string present { get; set; }
         public string past { get; set; }
 
-       
+
 
         /// <summary>
         /// creates a blank Infinitive
@@ -1057,7 +1100,7 @@
         {//DD 020614
             present = "";
             past = "";
-        
+
         }
 
 
@@ -1072,7 +1115,7 @@
             past = pa;
         }
 
-     
+
 
         public void printTable()
         {
@@ -1099,7 +1142,7 @@
         {//DD 020614
             present = "";
             past = "";
-        
+
         }
 
 

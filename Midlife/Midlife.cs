@@ -10,18 +10,16 @@
     {
         static void Main(string[] args)
         {
-            // Just testing the console.
-            Console.WriteLine("Loading...");
-
-            // Create a new word (from the XML file in actuality)
+            // Create a new word
             Language.Word w = new Language.Word();
             // These instantiations (there are many many more) would be done as the XML file is read for each Word...
-            //w.word = "avoir";
+            w.word = "avoir";
             w.nounTable = new Language.NounTable();
             w.adjectiveTable = new Language.AdjectiveTable();
             w.verbTable = new Language.VerbTable();
-            w.verbTable.indicativePresent.fps = "ai";
-            // Test the output. It works as expected.
+            w.verbTable.indicativePresent = new Language.IndicativePresent("ai", "as", "a", "avons", "avez", "ont");
+            w.adjectiveTable = new Language.AdjectiveTable("beau", "belle", "beaux", "belles", "beaux", 'b');
+            // Test the output.
             w.printConjugationTables();
             // Read the output so the console window stays open.            
             Console.Read();
