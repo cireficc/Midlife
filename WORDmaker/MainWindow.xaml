@@ -853,7 +853,7 @@
                     </Expander>
                 </StackPanel>
             </ScrollViewer>
-            <Button DockPanel.Dock="Right" Content="Add" FontFamily="Courier New" FontSize="36" Width="93"/>
+            <Button DockPanel.Dock="Right" Content="Add" FontFamily="Courier New" FontSize="36" Width="93" Click="Button_Click"/>
         </DockPanel>
     </Grid>
 </Window>

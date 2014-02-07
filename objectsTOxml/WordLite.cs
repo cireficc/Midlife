@@ -10,21 +10,15 @@ namespace objectsTOxml
     //needs to be public
     public class WordLite
     {
-        /*
-         NOTE:  for the word and definition feilds if you do not want a public setter
-         * you have to use IXmlSerializable interface and implement it 
-         * 
-         * which is really not that difficult. and with a complex class like Word we may want to 
-         * so we can optimize it.
-         
-         */
-
 
         string word;
         /// <summary>
         /// the text of the word
         /// </summary>
-        public string Word { get { return word; } set { word = value; } }
+        public string Word { get { return word; } set { word = value; } }// i did not want a public setter but for a simple xml demo i will use it
+
+        //to not use a public setter we will have to implement IXmlSerializable
+        //which will have to come later
 
         string definition;
         /// <summary>

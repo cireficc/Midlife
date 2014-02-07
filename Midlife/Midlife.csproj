@@ -38,7 +38,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyInfo1.cs" />
+    <None Include="dictBACKUP.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="Midlife.cs" />
   </ItemGroup>

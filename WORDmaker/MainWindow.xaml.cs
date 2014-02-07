@@ -12,8 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 using Language;
-
+using System.Xml.Serialization;
 
 namespace WORDmaker
 {
@@ -27,14 +28,7 @@ namespace WORDmaker
         //store the current word in memory
         //however most of the time this will be empty except for any lists that need populating
         //and during adding to the xml file there we will fill it and run through the XML engine
-        Word currentWord = new Word() 
-        { 
-            forms = new List<GrammaticalForm>(), 
-            verbTable = new VerbTable() 
-            {
-                prepositions = new List<string>()
-            } 
-        };
+        Word currentWord = new Word();
 
 
 
@@ -87,6 +81,32 @@ namespace WORDmaker
             verbprepostionsTextBox.Clear();
             verbprepostionsTextBox.Focus();
             verbprepostionsList.Items.Refresh();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {//the main button that writes to XML
+            Microsoft.Win32.SaveFileDialog sfd = new Microsoft.Win32.SaveFileDialog();
+            sfd.Title = "TEST: save one word to XML will rewrite";
+            sfd.Filter = "XML|*.xml";
+
+            if (sfd.ShowDialog() ?? false)//?? will turn null into false HERE
+            {
+
+                XmlSerializer xml = new XmlSerializer(typeof(Word));
+
+                //construct word
+                //maybe this weekend 
+
+
+
+                using (FileStream fs = new FileStream(sfd.FileName, FileMode.Create, FileAccess.Write))
+                {//create the xml file
+                    xml.Serialize(fs, currentWord);
+                }
+            }
+
+            
+
         }
       
 

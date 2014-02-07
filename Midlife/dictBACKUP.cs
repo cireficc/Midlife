@@ -1,16 +1,8 @@
-﻿    /*
-         Daniel de la Rosa 2/6/2014 :
-         * Changes:
-         *  public Constructors
-         *      I have/will added public constructors marked with comment "{//DD [date]"
-         *          NOTE: the .net xml serializer requires parameterless constructors 
-         *          and all feilds you wish to write to xml be publicly writable
-         *          and the class be public (so all classes here must be public)   
-     *         
-   */
+﻿//DD 2/6/14
+//properties of this file will indicate that it is not compiled
+//right click then select properties Build action is none
 
-
-    namespace Language
+namespace Language
 {
     using System;
     using System.Collections.Generic;
@@ -19,20 +11,32 @@
     using System.Text;
     using System.Threading.Tasks;
 
+
+
     class Global
     {
         // List will need to be extended to include accented vowels
         public static char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
     }
 
-    public class ExtendedDictionary
+    /*
+         Daniel de la Rosa 2/6/2014:
+         * Changes:
+         *  public Constructors
+         *      I have/will added public constructors marked with comment "{//DD [date]"
+         *          NOTE: the .net xml serializer requires parameterless constructors 
+         *          and all feilds you wish to write to xml be publicly writable
+         *          and the class be public (so all classes here must be public)
+     *          
+     * 
+     * THIS IS THE BACKUP BEFORE I MADE CHANGES
+    */
+
+
+    class ExtendedDictionary
     {
-        public ExtendedDictionary()
-        {//DD 020614
-            wordList = new SortedDictionary<string, List<WordForm>>();
-            dictionary = new SortedDictionary<string, Word>();
-        }
-        
+
+
 
 
         /*
@@ -65,21 +69,8 @@
         }
     }
 
-    public class Word
+    class Word
     {
-
-        public Word()
-        {//DD 020614
-            word = "";
-            aspirate = false;
-
-            forms = new List<GrammaticalForm>();
-
-            nounTable = new NounTable();
-            adjectiveTable = new AdjectiveTable();
-            verbTable = new VerbTable();
-        }
-
         // the infinitive Word in the Dictionary
         public string word { get; set; }
         // Whether or not the Word is aspirate - adjective forms and phonetics change.
@@ -91,9 +82,8 @@
          */
         public List<GrammaticalForm> forms { get; set; }
 
-
         public struct GrammaticalForm
-        {            
+        {
             // The grammatical identifier of the form (e.g., 'vi' or 'nm').
             public string form { get; set; }
             // The definition (meaning) of the Word in a particular form.
@@ -115,46 +105,13 @@
         }
     }
 
-    public abstract class ConjugationTable
+    abstract class ConjugationTable
     {
-        public ConjugationTable()
-        {//DD 020614
-        
-        }
-
         public abstract void printTable();
     }
 
-    public class NounTable : ConjugationTable
+    class NounTable : ConjugationTable
     {
-        static readonly char[] ValidGender = new char[] { 'm', 'f', 'b' };
-
-        public NounTable()
-            : base()
-        { //DD 020614
-            gender = '\0';
-            ms = "";
-            fs = "";
-            mpl = "";
-            fpl = "";
-        }
-        
-        public NounTable(char GENDER,string MS,string FS,string MPL,string FPL)
-            : base()
-        {//DD 020614
-            //check for valid input
-            if (NounTable.ValidGender.Contains(GENDER))
-            {
-                gender = GENDER;
-                ms = MS;
-                fs = FS;
-                mpl = MPL;
-                fpl = FPL;
-            }
-            else throw new ArgumentException("Invalid GENDER. Please use only 'm', 'f', or 'b'");
-        }
-
-
         /*
          * The gender of the noun:
          * 'ms' (masculin singular)
@@ -183,39 +140,8 @@
         }
     }
 
-    public class AdjectiveTable : ConjugationTable
+    class AdjectiveTable : ConjugationTable
     {
-        //
-        static readonly char[] ValidLocation = new char[] { 'b', 'a', 'n' };
-
-        public AdjectiveTable()
-            : base()
-        {//DD 020614
-            ms = "";
-            fs = "";
-            mpl = "";
-            fpl = "";
-            na = "";
-            location = 'n';
-        }
-
-        public AdjectiveTable(string MS,string FS,string MPL,string FPL,string NA,char LOCATION)
-            : base()
-        {//DD 020614
-            //check for valid input
-            if (AdjectiveTable.ValidLocation.Contains(LOCATION))
-            {//LOCATION is valid
-                ms = MS;
-                fs = FS;
-                fpl = FPL;
-                na = NA;
-                location = LOCATION;
-            }//throw exception if Location is not valid
-            else throw new ArgumentException("Invalid LOCATION. Please use only use 'b','a',or 'n'");
-        }
-
-
-
         /*
          * The gender of the adjective:
          * 'ms' (masculin singular)
@@ -234,7 +160,7 @@
          * 'b' (before)
          * 'a' (after)
          * 'n' (neutral) --> the adjective can come before OR after the noun.
-         */        
+         */
         public char location { get; set; }
 
         public override void printTable()
@@ -252,40 +178,8 @@
         }
     }
 
-    public class VerbTable : ConjugationTable
+    class VerbTable : ConjugationTable
     {
-
-        static readonly char[] ValidGroup = new char[] { 'f', 's', 't', 'e' };
-        static readonly char[] ValidAUX = new char[] { 'e','a'};
-
-        public VerbTable()
-            : base()
-        {//DD 020614
-            group = 'f';
-            auxillary = 'a';
-
-            prepositions = new List<string>();
-            transitive = false;
-            pronominal = false;
-        }
-
-        public VerbTable(char GROUP,char AUX,bool TRANSITIVE,bool PRONOMINAL,params string[] PREPOSITIONS)
-            : base()
-        {//DD 020614
-            if (VerbTable.ValidGroup.Contains(GROUP) && VerbTable.ValidAUX.Contains(AUX))
-            {
-                group = GROUP;
-                auxillary = AUX;
-
-
-                transitive = TRANSITIVE;
-                pronominal = PRONOMINAL;
-
-                prepositions.AddRange(PREPOSITIONS);
-            }
-            else throw new ArgumentException("GROUP or AUX is invalid");
-        }
-
         /* 
          * The group the verb belongs to:
          * 'f' (first) --> er.
@@ -301,6 +195,7 @@
          */
         public char auxillary { get; set; }
         // A list of grammatically-valid prepositions the verb can take.
+        //changed to list<string> type 2/14/14 Daniel; was string[]
         public List<string> prepositions { get; set; }
         // Whether or not the verb is transitive.
         public bool transitive { get; set; }
@@ -323,7 +218,7 @@
          * 'past' (past tense)
          * and their accompanying conjugations.
          */
-        
+
         // All of the different conjugation types are instantiated
         // when a VerbTable is instantiated.
 
@@ -375,7 +270,7 @@
         }
     }
 
-    public abstract class Indicative
+    abstract class Indicative
     {
         public string fps { get; set; }
         public string sps { get; set; }
@@ -384,29 +279,10 @@
         public string spp { get; set; }
         public string tpp { get; set; }
 
-        public Indicative()
-        {//DD020614
-            fps = "";
-            sps = "";
-            tps = "";
-            fpp = "";
-            spp = "";
-            tpp = "";
-        }
-        public Indicative(string FPS,string SPS, string TPS, string FPP, string SPP, string TPP)
-        {//DD020614
-            fps = FPS;
-            sps = SPS;
-            tps = TPS;
-            fpp = FPP;
-            spp = SPP;
-            tpp = TPP;
-        }
-
         public abstract void printTable();
     }
 
-    public abstract class Subjunctive
+    abstract class Subjunctive
     {
         public string fps { get; set; }
         public string sps { get; set; }
@@ -415,30 +291,10 @@
         public string spp { get; set; }
         public string tpp { get; set; }
 
-        public Subjunctive()
-        {//DD020614
-            fps = "";
-            sps = "";
-            tps = "";
-            fpp = "";
-            spp = "";
-            tpp = "";
-        }
-
-        public Subjunctive(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-        {//DD020614
-            fps = FPS;
-            sps = SPS;
-            tps = TPS;
-            fpp = FPP;
-            spp = SPP;
-            tpp = TPP;
-        }
-
         public abstract void printTable();
     }
 
-    public abstract class Conditional
+    abstract class Conditional
     {
         public string fps { get; set; }
         public string sps { get; set; }
@@ -447,69 +303,21 @@
         public string spp { get; set; }
         public string tpp { get; set; }
 
-        public Conditional()
-        {//DD020614
-            fps = "";
-            sps = "";
-            tps = "";
-            fpp = "";
-            spp = "";
-            tpp = "";
-        }
-
-        public Conditional(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-        {//DD020614
-            fps = FPS;
-            sps = SPS;
-            tps = TPS;
-            fpp = FPP;
-            spp = SPP;
-            tpp = TPP;        
-        }
-
         public abstract void printTable();
     }
 
-    public abstract class Imperative
+    abstract class Imperative
     {
         public string sps { get; set; }
         public string fpp { get; set; }
         public string spp { get; set; }
 
-        public Imperative()
-        {//DD020614
-            sps = "";
-            fpp = "";
-            spp = "";
-        }
-
-        public Imperative(string SPS,string FPP,string SPP)
-        {//DD020614
-            spp = SPS;
-            fpp = FPP;
-            spp = SPP;
-        }
-
         public abstract void printTable();
     }
 
-    public class IndicativePresent : Indicative
+    class IndicativePresent : Indicative
     {
 
-        public IndicativePresent()
-            : base()
-        { //DD 020614
-
-        }
-
-        public IndicativePresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS,SPS,TPS,FPP,SPP,TPP)
-        {//DD 020614 
-        
-        } 
-
-
-            
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Present"));
@@ -517,7 +325,7 @@
             Console.WriteLine();
             if (Global.vowels.Contains('x'))
                 Console.WriteLine("J'         --> {0}", fps);
-            else 
+            else
                 Console.WriteLine("Je         --> {0}", fps);
             Console.WriteLine("Tu         --> {0}", sps);
             Console.WriteLine("Il/Elle/On --> {0}", tps);
@@ -528,19 +336,8 @@
         }
     }
 
-    public class IndicativeSimplePast : Indicative
+    class IndicativeSimplePast : Indicative
     {
-        public IndicativeSimplePast()
-            : base()
-        {//DD 020614
-        
-        }
-
-        public IndicativeSimplePast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-        
-        }        
 
         public override void printTable()
         {
@@ -560,21 +357,8 @@
         }
     }
 
-    public class IndicativePresentPerfect : Indicative
+    class IndicativePresentPerfect : Indicative
     {
-
-        public IndicativePresentPerfect()
-            : base()
-        { //DD 020614
-
-        }
-
-        public IndicativePresentPerfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-
-        }  
 
         public override void printTable()
         {
@@ -594,19 +378,9 @@
         }
     }
 
-    public class IndicativePastPerfect : Indicative
+    class IndicativePastPerfect : Indicative
     {
-        public IndicativePastPerfect()
-            : base()
-        {//DD 020614 
-        
-        }
 
-        public IndicativePastPerfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614 
-        
-        }
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Past Perfect"));
@@ -625,20 +399,8 @@
         }
     }
 
-    public class IndicativeImperfect : Indicative
+    class IndicativeImperfect : Indicative
     {
-        public IndicativeImperfect()
-            : base()
-        {//DD 020614
-        
-        }
-
-        public IndicativeImperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-        
-        }
-
 
         public override void printTable()
         {
@@ -658,16 +420,8 @@
         }
     }
 
-    public class IndicativePluperfect : Indicative
+    class IndicativePluperfect : Indicative
     {
-        public IndicativePluperfect()
-            : base()
-        { }
-
-        public IndicativePluperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        { }
-
 
         public override void printTable()
         {
@@ -687,20 +441,8 @@
         }
     }
 
-    public class IndicativeFuture : Indicative
+    class IndicativeFuture : Indicative
     {
-
-        public IndicativeFuture()
-            : base()
-        {//DD 020614 
-        
-        }
-
-        public IndicativeFuture(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-        
-        }
 
         public override void printTable()
         {
@@ -720,20 +462,8 @@
         }
     }
 
-    public class IndicativePastFuture : Indicative
+    class IndicativePastFuture : Indicative
     {
-
-        public IndicativePastFuture()
-            : base()
-        {//DD 020614
-        
-        }
-
-        public IndicativePastFuture(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-        
-        }
 
         public override void printTable()
         {
@@ -753,19 +483,8 @@
         }
     }
 
-    public class SubjunctivePresent : Subjunctive
+    class SubjunctivePresent : Subjunctive
     {
-        public SubjunctivePresent()
-            : base()
-        { //DD 020614
-            
-        }
-
-        public SubjunctivePresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        { //DD 020614
-        
-        }
 
         public override void printTable()
         {
@@ -785,20 +504,8 @@
         }
     }
 
-    public class SubjunctivePast : Subjunctive
+    class SubjunctivePast : Subjunctive
     {
-
-        public SubjunctivePast()
-            : base()
-        {//DD 020614
-
-        }
-
-        public SubjunctivePast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-        }
 
         public override void printTable()
         {
@@ -818,20 +525,8 @@
         }
     }
 
-    public class SubjunctiveImperfect : Subjunctive
+    class SubjunctiveImperfect : Subjunctive
     {
-
-        public SubjunctiveImperfect()
-            : base()
-        {//DD 020614
-
-        }
-
-        public SubjunctiveImperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-        }
 
         public override void printTable()
         {
@@ -851,21 +546,8 @@
         }
     }
 
-    public class SubjunctivePluperfect : Subjunctive
+    class SubjunctivePluperfect : Subjunctive
     {
-
-        public SubjunctivePluperfect()
-            : base()
-        {//DD 020614
-
-        }
-
-        public SubjunctivePluperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-        }
-
 
         public override void printTable()
         {
@@ -885,19 +567,8 @@
         }
     }
 
-    public class ConditionalPresent : Conditional
+    class ConditionalPresent : Conditional
     {
-        public ConditionalPresent()
-            : base()
-        {//DD 020614
-
-        }
-
-        public ConditionalPresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-        }
 
         public override void printTable()
         {
@@ -917,24 +588,9 @@
         }
     }
 
-    public class ConditionalFirstPast : Conditional
+    class ConditionalFirstPast : Conditional
     {
 
-        public ConditionalFirstPast()
-            : base()
-        {//DD 020614
-
-            
-
-        }
-
-        public ConditionalFirstPast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-        }
-
-        
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional First Past"));
@@ -953,22 +609,8 @@
         }
     }
 
-    public class ConditionalSecondPast : Conditional
+    class ConditionalSecondPast : Conditional
     {
-
-        public ConditionalSecondPast()
-            : base()
-        {//DD 020614
-
-
-
-        }
-
-        public ConditionalSecondPast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
-            : base(FPS, SPS, TPS, FPP, SPP, TPP)
-        {//DD 020614
-
-        }
 
         public override void printTable()
         {
@@ -988,21 +630,8 @@
         }
     }
 
-    public class ImperativePresent : Imperative
+    class ImperativePresent : Imperative
     {
-
-        public ImperativePresent()
-            : base()
-        {//DD 020614
-        
-        }
-
-        public ImperativePresent(string SPS, string FPP, string SPP)
-            : base(SPS, FPP, SPP)
-        {//DD 020614
-
-        }
-
 
         public override void printTable()
         {
@@ -1016,20 +645,8 @@
         }
     }
 
-    public class ImperativePast : Imperative
+    class ImperativePast : Imperative
     {
-
-        public ImperativePast()
-            : base()
-        {//DD 020614
-        
-        }
-
-        public ImperativePast(string SPS, string FPP, string SPP)
-            : base(SPS, FPP, SPP)
-        {//DD 020614
-
-        }
 
         public override void printTable()
         {
@@ -1043,36 +660,10 @@
         }
     }
 
-    public class Infinitive
+    class Infinitive
     {
         public string present { get; set; }
         public string past { get; set; }
-
-       
-
-        /// <summary>
-        /// creates a blank Infinitive
-        /// </summary>
-        public Infinitive()
-        {//DD 020614
-            present = "";
-            past = "";
-        
-        }
-
-
-        /// <summary>
-        /// creates a Infinitive
-        /// </summary>
-        /// <param name="pr">the present</param>
-        /// <param name="pa">the past</param>
-        public Infinitive(string pr, string pa)
-        {//DD 020614
-            present = pr;
-            past = pa;
-        }
-
-     
 
         public void printTable()
         {
@@ -1085,36 +676,10 @@
         }
     }
 
-    public class Participle
+    class Participle
     {
         public string present { get; set; }
         public string past { get; set; }
-
-        #region Construction
-
-        /// <summary>
-        /// creates a blank Participle
-        /// </summary>
-        public Participle()
-        {//DD 020614
-            present = "";
-            past = "";
-        
-        }
-
-
-        /// <summary>
-        /// creates a Participle
-        /// </summary>
-        /// <param name="pr">the present</param>
-        /// <param name="pa">the past</param>
-        public Participle(string pr, string pa)
-        {//DD 020614
-            present = pr;
-            past = pa;
-        }
-
-        #endregion
 
         public void printTable()
         {
