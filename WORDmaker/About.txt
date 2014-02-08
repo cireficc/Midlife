@@ -21,15 +21,13 @@ TextBox names should be obvious. If they are not please see table below. If that
 
 TextBox names for conjugation tables are as follows:
 	adj_   = Adjective Table 
-	noun_  = Noun Table
-	c_     = Conditional
+	noun_  = Noun Table	
 	cp_    = Conditional Present
 	cfp_   = Conditional First Past
 	csp_   = Conditional Second Past
-	i_     = Imperative
 	ipr_   = Imperative Present
 	ipa_   = Imperative Past
-	in_    = Indicative 
+	im_    = Indicative Imperfect
 	inf_   = Indicative Future
 	inpf_  = Indicative Past Future
 	inpp_  = Indicative Past Perfect
@@ -39,7 +37,6 @@ TextBox names for conjugation tables are as follows:
 	insp_  = Indicative Simple Past
 	infi_  = Infinitive 
 	part_  = Participle
-	s_     = Subjunctive
 	si_    = Subjunctive Imperfect
 	spa_   = Subjunctive Past
 	spl_   = Subjunctive Pluperfect
@@ -50,4 +47,17 @@ TextBox names for conjugation tables are as follows:
 	
 
 
-		
+v.02: the UI should more closly resemble the XML file structure now
+
+	-I have rearanged the user interface to match the XML schema exactly. however this was a FIRST pass. and will need additional review and correction.
+	-found some typos  like using Texbox instead of TextBox in names of TextBoxes.
+
+	once this is refined a little further it will be ready to be used to build a Word object.
+
+	-since Contexts have been added I am  considering a seperate Application for this. to be implemented later, after the dictionary is complete or close to.
+
+
+	PLANS:  next I may add check boxes to the headers of the Adjective,Noun,Verb sections to indicate if we want to add them to the word.
+	this functionality has not been engineered yet.
+
+	I will also add a global text style to make things more readable and increase widths of text boxes. 

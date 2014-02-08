@@ -2,14 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:Language"
-        Title="MainWindow" Height="350" Width="525" MaxHeight="700" ResizeMode="NoResize">
+        Title="MainWindow" Height="600" Width="1024" ResizeMode="NoResize">
     <Grid>
         <DockPanel >
             <ScrollViewer DockPanel.Dock="Left">
-                <StackPanel Width="410">
+                <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Name="wordTextBox" Width="300"/>
+                        <TextBox Name="wordTextBox" Width="800"/>
                         <CheckBox Name="aspirateRadioButton" Content="aspirate" FontFamily="courier new" FontSize="18"/>
                     </StackPanel>
 
@@ -28,9 +28,9 @@
                                         <ListBox.ItemTemplate>
                                             <DataTemplate>
                                                 <StackPanel Orientation="Horizontal">
-                                                    <TextBlock Text="Form: "/>
+                                                    <TextBlock Text="Form: " FontSize="8"/>
                                                     <TextBlock Text="{Binding form}"/>
-                                                    <TextBlock Text=" ; Definition: "/>
+                                                    <TextBlock Text=" ; Definition: " FontSize="8"/>
                                                     <TextBlock Text="{Binding definition}"/>
                                                 </StackPanel>
                                             </DataTemplate>
@@ -40,68 +40,70 @@
                             </StackPanel>
                         </Grid>
                     </Expander>
-
-                    <Expander Name="adjectiveExpander" Header="Adjective Table">
+                    
+                    <Label Content="Conjugation Tables:"/>
+                    
+                    <Expander Name="nounExpander" Header="Noun Table">
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Location: "/>
-                                <TextBox Name="adj_locationTexbox" Width="300"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="FPL: "/>
-                                <TextBox Name="adj_fplTexbox" Width="300"/>
+                                <TextBlock Text="MS: "/>
+                                <TextBox Name="noun_msTextBox" Width="300"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="FS: "/>
-                                <TextBox Name="adj_fsTexbox" Width="300"/>
+                                <TextBox Name="noun_fsTextBox" Width="300"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="MPL: "/>
-                                <TextBox Name="adj_mplTexbox" Width="300"/>
+                                <TextBox Name="noun_mplTextBox" Width="300"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="FPL: "/>
+                                <TextBox Name="noun_fplTextBox" Width="300"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Gender: "/>
+                                <TextBox Name="noun_genderTextBox" Width="300"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Expander>
+                    
+                    <Expander Name="adjectiveExpander" Header="Adjective Table">
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="MS: "/>
-                                <TextBox Name="adj_msTexbox" Width="300"/>
+                                <TextBox Name="adj_msTextBox" Width="300"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="FS: "/>
+                                <TextBox Name="adj_fsTextBox" Width="300"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="MPL: "/>
+                                <TextBox Name="adj_mplTextBox" Width="300"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="FPL: "/>
+                                <TextBox Name="adj_fplTextBox" Width="300"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="NA: "/>
-                                <TextBox Name="adj_naTexbox" Width="300"/>
-                            </StackPanel>
-
-                        </StackPanel>
-                    </Expander>
-
-                    <Expander Name="nounExpander" Header="Noun Table">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="Gender: "/>
-                                <TextBox Name="noun_genderTexbox" Width="300"/>
+                                <TextBox Name="adj_naTextBox" Width="300"/>
                             </StackPanel>
 
                             <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="FPL: "/>
-                                <TextBox Name="noun_fplTexbox" Width="300"/>
+                                <TextBlock Text="Location: "/>
+                                <TextBox Name="adj_locationTextBox" Width="300"/>
                             </StackPanel>
 
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="FS: "/>
-                                <TextBox Name="noun_fsTexbox" Width="300"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="MPL: "/>
-                                <TextBox Name="noun_mplTexbox" Width="300"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="MS: "/>
-                                <TextBox Name="noun_msTexbox" Width="300"/>
-                            </StackPanel>
                         </StackPanel>
                     </Expander>
 
@@ -118,87 +120,507 @@
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal" >                                        
                                         <TextBlock Text="Preposition: "/>
-                                        <TextBox Name="verbprepostionsTextBox" Width="200"/>
-                                        <Button Name="addverbprepostionsButton" Content="Add" Click="addverbprepostionsButton_Click"/>
+                                        <TextBox Name="verbprepositionsTextBox" Width="200"/>
+                                        <Button Name="addverbprepositionsButton" Content="Add" Click="addverbprepostionsButton_Click"/>
                                     </StackPanel>
                                     <StackPanel>
-                                        <ListBox Name="verbprepostionsList" ItemsSource="{Binding}" Height="100"/>
+                                        <ListBox Name="verbprepositionsList" ItemsSource="{Binding}" Height="100"/>
                                     </StackPanel>
                                 </StackPanel>
 
                             </StackPanel>
 
-                            <Expander Header="Conjuction Tables" Margin="20,0,0,0">
+                            <Expander Header="Verb Properties" Margin="20,0,0,0">
                                 <StackPanel>
-                                    <Expander Header="Conditionals" Margin="20,0,0,0">
+                                    <Expander Header="Indicative" Margin="20,0,0,0">
+
                                         <StackPanel>
-                                            <Expander Header="Conditional" Margin="20,0,0,0">
+                                            <Expander Header="Indicative Present" Margin="20,0,0,0">
+
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="c_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="c_fpsTextBox" Width="300"/>
+                                                        <TextBox Name="inpr_fpsTextBox" Width="300"/>
                                                     </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="inpr_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="inpr_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="inpr_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
 
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="c_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="c_spsTextBox" Width="300"/>
-                                                    </StackPanel>
+                                                        <TextBox Name="inpr_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
 
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="c_tppTextBox" Width="300"/>
+                                                        <TextBox Name="inpr_tppTextBox" Width="300"/>
                                                     </StackPanel>
+                                                    
+                                                </StackPanel>
 
+                                            </Expander>
+                                            
+                                            <Expander Header="Indicative Simple Past" Margin="20,0,0,0">
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="insp_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="insp_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="c_tpsTextBox" Width="300"/>
+                                                        <TextBox Name="insp_tpsTextBox" Width="300"/>
                                                     </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="insp_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
 
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="insp_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="insp_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                </StackPanel>
+
+                                            </Expander>
+                                            
+                                            <Expander Header="Indicative Present Perfect" Margin="20,0,0,0">
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="inprp_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="inprp_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="inprp_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="inprp_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="inprp_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="inprp_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                        
+                                                </StackPanel>
+
+                                            </Expander>
+                                            
+                                            <Expander Header="Indicative Past Perfect" Margin="20,0,0,0">
+
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="inpp_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="inpp_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="inpp_tpsTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="inpp_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="inpp_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="inpp_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                </StackPanel>
+
+                                            </Expander>
+                                            
+                                            <Expander Header="Indicative Imperfect" Margin="20,0,0,0">
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="im_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="im_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="im_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="im_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="im_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="im_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
                                                 </StackPanel>
                                             </Expander>
+                                            
+                                            <Expander Header="Indicative Pluperfect" Margin="20,0,0,0">
 
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="inpl_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="inpl_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="inpl_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="inpl_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="inpl_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="inpl_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                </StackPanel>
+
+                                            </Expander>  
+
+                                            <Expander Header="Indicative Future" Margin="20,0,0,0">
+
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="inf_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="inf_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="inf_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                                                                        
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="inf_fppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                   
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="inf_sppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="inf_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                </StackPanel>
+
+                                            </Expander>
+
+                                            <Expander Header="Indicative Past Future" Margin="20,0,0,0">
+
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="inpf_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="inpf_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="inpf_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="inpf_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="inpf_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="inpf_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                </StackPanel>
+
+                                            </Expander>
+                                        </StackPanel>
+
+                                    </Expander>
+                                    <Expander Header="Subjunctive" Margin="20,0,0,0">                                        
+                                        <StackPanel>
+                                            <Expander Header="Subjunctive Present" Margin="20,0,0,0">
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="spr_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="spr_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="spr_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="spr_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="spr_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="spr_tppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                </StackPanel>
+
+                                            </Expander>
+                                            
+                                            <Expander Header="Subjunctive Past" Margin="20,0,0,0">
+
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="spa_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="spa_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="spa_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="spa_fppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="spa_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="spa_tppTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                </StackPanel>
+
+                                            </Expander>
+
+                                            <Expander Header="Subjunctive Imperfect" Margin="20,0,0,0">
+
+                                                <StackPanel>
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="si_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="si_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="si_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="si_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="si_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="si_tppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                </StackPanel>
+
+                                            </Expander>                                            
+
+                                            <Expander Header="Subjunctive Pluperfect" Margin="20,0,0,0">
+
+                                                <StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPS: "/>
+                                                        <TextBox Name="spl_fpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="spl_spsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPS: "/>
+                                                        <TextBox Name="spl_tpsTextBox" Width="300"/>
+                                                    </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="spl_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="spl_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="spl_tppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                </StackPanel>
+
+                                            </Expander>                                           
+                                            
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander Header="Conditional" Margin="20,0,0,0">
+                                        <StackPanel>
                                             <Expander Header="Conditional Present" Margin="20,0,0,0">
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="cp_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPS: "/>
                                                         <TextBox Name="cp_fpsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="cp_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="SPS: "/>
                                                         <TextBox Name="cp_spsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="cp_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="TPS: "/>
                                                         <TextBox Name="cp_tpsTextBox" Width="300"/>
                                                     </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="cp_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="cp_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="cp_tppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
 
                                                 </StackPanel>
 
@@ -208,34 +630,34 @@
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="cfp_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPS: "/>
                                                         <TextBox Name="cfp_fpsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="cfp_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="SPS: "/>
                                                         <TextBox Name="cfp_spsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="cfp_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="TPS: "/>
                                                         <TextBox Name="cfp_tpsTextBox" Width="300"/>
                                                     </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="cfp_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="cfp_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="cfp_tppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
 
                                                 </StackPanel>
 
@@ -245,65 +667,49 @@
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="csp_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPS: "/>
                                                         <TextBox Name="csp_fpsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="csp_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="SPS: "/>
                                                         <TextBox Name="csp_spsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="csp_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="TPS: "/>
                                                         <TextBox Name="csp_tpsTextBox" Width="300"/>
                                                     </StackPanel>
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="FPP: "/>
+                                                        <TextBox Name="csp_fppTextBox" Width="300"/>
+                                                    </StackPanel>                                                    
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPP: "/>
+                                                        <TextBox Name="csp_sppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="TPP: "/>
+                                                        <TextBox Name="csp_tppTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
 
                                                 </StackPanel>
 
                                             </Expander>
                                         </StackPanel>
                                     </Expander>
-                                    <Expander Header="Imperitives" Margin="20,0,0,0">
-                                        <StackPanel>
-                                            <Expander Header="Imperitive" Margin="20,0,0,0">
-
+                                    <Expander Header="Imperitive" Margin="20,0,0,0">
+                                        <StackPanel>                                            
+                                            <Expander Header="Imperitive Present" Margin="20,0,0,0">                                                
                                                 <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="i_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="i_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="i_spsTextBox" Width="300"/>
+                                                        <TextBox Name="ipr_spsTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                </StackPanel>
-
-                                            </Expander>
-                                            <Expander Header="Imperitive Present" Margin="20,0,0,0">
-                                                <StackPanel>
+                                                    
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPP: "/>
                                                         <TextBox Name="ipr_fppTextBox" Width="300"/>
@@ -312,14 +718,9 @@
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="SPP: "/>
                                                         <TextBox Name="ipr_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="ipr_spsTextBox" Width="300"/>
-                                                    </StackPanel>
+                                                    </StackPanel>                                                   
                                                 </StackPanel>
-                                            </Expander>                                            
+                                            </Expander>
                                             <Expander Header="Imperitive Past" Margin="20,0,0,0">
 
                                                 <StackPanel>
@@ -342,511 +743,36 @@
 
                                             </Expander>
                                         </StackPanel>
-                                    </Expander>
-                                    <Expander Header="Indicatives" Margin="20,0,0,0">
-                                        
-                                        <StackPanel>
-                                            
-                                            <Expander Header="Indicative" Margin="20,0,0,0">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="in_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="in_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="in_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="in_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="in_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="in_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-                                            </Expander>
-
-                                            <Expander Header="Indicative Future" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="inf_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="inf_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="inf_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="inf_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="inf_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="inf_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Indicative Past Future" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="inpf_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="inpf_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="inpf_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="inpf_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="inpf_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="inpf_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Indicative Past Perfect" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="inpp_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="inpp_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="inpp_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="inpp_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="inpp_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="inpp_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Indicative Pluperfect" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="inpl_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="inpl_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="inpl_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="inpl_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="inpl_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="inpl_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Indicative Present" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="inpr_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="inpr_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="inpr_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="inpr_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="inpr_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="inpr_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Indicative Present Perfect" Margin="20,0,0,0">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="inprp_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="inprp_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="inprp_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="inprp_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="inprp_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="inprp_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Indicative Simple Past" Margin="20,0,0,0">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="insp_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="insp_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="insp_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="insp_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="insp_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="insp_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-                                                </StackPanel>
-
-                                            </Expander>
-                                        </StackPanel>
-
-                                    </Expander>
+                                    </Expander>                                    
                                     <Expander Header="infinitive" Margin="20,0,0,0">
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Past: "/>
-                                            <TextBox Name="infi_pastTextBox" Width="300"/>
-                                        </StackPanel>
-
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="Present: "/>
-                                            <TextBox Name="infi_presentTextBox" Width="300"/>
-                                        </StackPanel>
-                                        </StackPanel>
-
-                                    </Expander>
-                                    <Expander Header="Participle" Margin="20,0,0,0">
-
-                                        <StackPanel>
+                                                <TextBlock Text="Present: "/>
+                                                <TextBox Name="infi_presentTextBox" Width="300"/>
+                                            </StackPanel>
+                                            
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Past: "/>
-                                                <TextBox Name="part_pastTextBox" Width="300"/>
-                                            </StackPanel>
-
+                                                <TextBox Name="infi_pastTextBox" Width="300"/>
+                                            </StackPanel>                                            
+                                        </StackPanel>
+                                    </Expander>
+                                    <Expander Header="Participle" Margin="20,0,0,0">
+                                        <StackPanel>                                            
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Present: "/>
                                                 <TextBox Name="part_presentTextBox" Width="300"/>
                                             </StackPanel>
-                                        </StackPanel>
-
-                                    </Expander>
-                                    <Expander Header="Subjunctives" Margin="20,0,0,0">                                        
-                                        <StackPanel>
-                                            <Expander Header="Subjunctive" Margin="20,0,0,0">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="s_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="s_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="s_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="s_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="s_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="s_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                </StackPanel>
-                                            </Expander>
-
-                                            <Expander Header="Subjunctive Imperfect" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="si_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="si_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="si_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="si_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="si_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="si_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Subjunctive Past" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="spa_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="spa_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="spa_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="spa_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="spa_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="spa_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                </StackPanel>
-
-                                            </Expander>
-
-                                            <Expander Header="Subjunctive Pluperfect" Margin="20,0,0,0">
-
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="spl_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="spl_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="spl_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="spl_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="spl_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="spl_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                </StackPanel>
-
-                                            </Expander>
                                             
-                                            <Expander Header="Subjunctive Present" Margin="20,0,0,0">
-                                                <StackPanel>
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPP: "/>
-                                                        <TextBox Name="spr_fppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="FPS: "/>
-                                                        <TextBox Name="spr_fpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPP: "/>
-                                                        <TextBox Name="spr_sppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="spr_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPP: "/>
-                                                        <TextBox Name="spr_tppTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="TPS: "/>
-                                                        <TextBox Name="spr_tpsTextBox" Width="300"/>
-                                                    </StackPanel>
-
-                                                </StackPanel>
-
-                                            </Expander>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="Past: "/>
+                                                <TextBox Name="part_pastTextBox" Width="300"/>
+                                            </StackPanel>
+                                            
                                         </StackPanel>
+
                                     </Expander>
+                                    
                                 </StackPanel>
                             </Expander>
                         </StackPanel>

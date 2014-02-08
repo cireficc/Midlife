@@ -39,7 +39,7 @@ namespace WORDmaker
 
             //databind our lists to the internal lists of the current Word
             formsList.DataContext = currentWord.forms;
-            verbprepostionsList.DataContext = currentWord.verbTable.prepositions;
+            verbprepositionsList.DataContext = currentWord.verbTable.prepositions;
 
             //set up comboboxes with lists of values defined for these feilds in dictionary.cs
             //located in MidLife project
@@ -79,10 +79,10 @@ namespace WORDmaker
         private void addverbprepostionsButton_Click(object sender, RoutedEventArgs e)
         {
             //same pattern as above add , clear, focus
-            currentWord.verbTable.prepositions.Add(verbprepostionsTextBox.Text);
-            verbprepostionsTextBox.Clear();
-            verbprepostionsTextBox.Focus();
-            verbprepostionsList.Items.Refresh();
+            currentWord.verbTable.prepositions.Add(verbprepositionsTextBox.Text);
+            verbprepositionsTextBox.Clear();
+            verbprepositionsTextBox.Focus();
+            verbprepositionsList.Items.Refresh();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
