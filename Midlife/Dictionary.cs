@@ -161,7 +161,7 @@ namespace Language
     {
         public ConjugationTable()
         {//DD 020614
-
+            //DD this could be very usefull for optional serializing
         }
 
         public abstract void printTable();
@@ -228,6 +228,7 @@ namespace Language
     public class AdjectiveTable : ConjugationTable
     {
         //
+        
         static readonly char[] ValidLocation = new char[] { 'b', 'a', 'n' };
 
         public AdjectiveTable()
@@ -267,6 +268,7 @@ namespace Language
          * 'fpl' (feminin plural)
          * 'na' (non-aspirate)
          */
+        
         public string ms { get; set; }
         public string fs { get; set; }
         public string mpl { get; set; }
