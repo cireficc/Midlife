@@ -63,7 +63,7 @@ namespace Language
 
         public struct WordForm
         {
-            public string rootWord { get; set; }
+            public string rootWord { get; set; }           
             public string formIdentifier { get; set; }
         }
     }

@@ -1,16 +1,19 @@
 ﻿<Window x:Class="WORDmaker.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:lang="clr-namespace:Language"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"        
         Title="MainWindow" Height="600" Width="1024" ResizeMode="NoResize">
     <Grid>
         <DockPanel >
+            <ScrollViewer DockPanel.Dock="Left" >
+                <ListBox Name="dictionaryListBox" ItemsSource="{Binding}" Width="80"/>
+            </ScrollViewer>
+            
             <ScrollViewer DockPanel.Dock="Left">
                 <StackPanel>
 
                     <StackPanel Orientation="Horizontal">
-                        <TextBox Name="wordTextBox" Width="800"/>
-                        <CheckBox Name="aspirateRadioButton" Content="aspirate" FontFamily="courier new" FontSize="18"/>
+                        <TextBox Name="wordTextBox" Width="695"/>
+                        <CheckBox Name="aspirateCheckBox" Content="Aspirate" FontFamily="courier new" FontSize="18"/>
                     </StackPanel>
 
                     <Expander Name="grammerformsExpander" Header="Grammer Forms">
@@ -43,7 +46,15 @@
                     
                     <Label Content="Conjugation Tables:"/>
                     
-                    <Expander Name="nounExpander" Header="Noun Table">
+                    <Expander Name="nounExpander" >
+                        
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Noun Table  ||   "/>
+                                <CheckBox Name="nounEnabledCheckBox" IsChecked="False" Content="Enabled"/>
+                            </StackPanel>                            
+                        </Expander.Header>
+                        
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="MS: "/>
@@ -72,7 +83,15 @@
                         </StackPanel>
                     </Expander>
                     
-                    <Expander Name="adjectiveExpander" Header="Adjective Table">
+                    <Expander Name="adjectiveExpander">
+
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Adjective Table  ||   "/>
+                                <CheckBox Name="adjectiveEnabledCheckBox" IsChecked="False" Content="Enabled"/>
+                            </StackPanel>
+                        </Expander.Header>
+
                         <StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="MS: "/>
@@ -107,14 +126,23 @@
                         </StackPanel>
                     </Expander>
 
-                    <Expander Name="verbExpander" Header="Verb Table">
+                    <Expander Name="verbExpander" >
+
+                        <Expander.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Verb Table  ||   "/>
+                                <CheckBox Name="verbEnabledCheckBox" IsChecked="False" Content="Enabled"/>
+                            </StackPanel>
+                        </Expander.Header>
+
+
                         <StackPanel>
                             <StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="AUX: "/>
-                                    <ComboBox Name="auxillaryCombobox" Width="20"/>
+                                    <ComboBox Name="auxillaryCombobox" Width="60"/>
                                     <TextBlock Text="  Group: "/>
-                                    <ComboBox Name="groupCombobox" Width="20"/>
+                                    <ComboBox Name="groupCombobox" Width="60"/>
                                 </StackPanel>
 
                                 <StackPanel>
@@ -725,6 +753,11 @@
 
                                                 <StackPanel>
                                                     <StackPanel Orientation="Horizontal">
+                                                        <TextBlock Text="SPS: "/>
+                                                        <TextBox Name="ipa_spsTextBox" Width="300"/>
+                                                    </StackPanel>                                                   
+                                                    
+                                                    <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="FPP: "/>
                                                         <TextBox Name="ipa_fppTextBox" Width="300"/>
                                                     </StackPanel>
@@ -733,18 +766,11 @@
                                                         <TextBlock Text="SPP: "/>
                                                         <TextBox Name="ipa_sppTextBox" Width="300"/>
                                                     </StackPanel>
-
-                                                    <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="SPS: "/>
-                                                        <TextBox Name="ipa_spsTextBox" Width="300"/>
-                                                    </StackPanel>
-
                                                 </StackPanel>
-
                                             </Expander>
                                         </StackPanel>
                                     </Expander>                                    
-                                    <Expander Header="infinitive" Margin="20,0,0,0">
+                                    <Expander Header="Infinitive" Margin="20,0,0,0">
                                         <StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                                 <TextBlock Text="Present: "/>
