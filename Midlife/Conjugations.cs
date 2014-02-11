@@ -1,185 +1,47 @@
-﻿//DD 2/6/14
-//properties of this file will indicate that it is not compiled
-//right click then select properties Build action is none
+﻿// Own namespace - contains grammar-specific variables
+using Language.Grammar;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Language
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Collections;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
-
-
-    class Global
-    {
-        // List will need to be extended to include accented vowels
-        public static char[] vowels = { 'a', 'e', 'i', 'o', 'u', 'y' };
-    }
-
-    /*
-         Daniel de la Rosa 2/6/2014:
-         * Changes:
-         *  public Constructors
-         *      I have/will added public constructors marked with comment "{//DD [date]"
-         *          NOTE: the .net xml serializer requires parameterless constructors 
-         *          and all feilds you wish to write to xml be publicly writable
-         *          and the class be public (so all classes here must be public)
-     *          
-     * 
-     * THIS IS THE BACKUP BEFORE I MADE CHANGES
-    */
-
-
-    class ExtendedDictionary
+    public class VerbTable : ConjugationTable
     {
 
+        static readonly char[] ValidGroup = new char[] { 'f', 's', 't', 'e' };
+        static readonly char[] ValidAUX = new char[] { 'e', 'a' };
 
+        public VerbTable()
+            : base()
+        {//DD 020614
+            group = 'f';
+            auxillary = 'a';
 
-
-        /*
-         * The spell-checking wordlist. Will be used in spell-checking as well
-         * as in the parsing process. Structure is as follows:
-         * 
-         * word (conjugated; KEY) -> WordForm (rootWord, formIdentifier)
-         * English: the primary key is any word (conjugated). The value
-         * of the key is a List of WordForm Objects that contain the root word
-         * (for easy lookup), as well as the grammatical identifier of the
-         * root word (very useful in the parsing process).
-         * 
-         * 'suis' -> ('être', IndPreFPS)   // First person singular, present, indicative of the verb 'être'
-         *           ('suivre', IndPreFPS) // First person singular, present, indicative of the verb 'suivre'
-         *           ('suivre', IndPreSPS) // Second person singular, present, indicative of the verb 'suivre'
-         *           ('suivre', ImpPreSPS)  // Second person singular, present, imperative of the verb 'suivre'
-         */
-        public SortedDictionary<string, List<WordForm>> wordList { get; set; }
-        /*
-         * The actual dictionary, used for lookups. It will only contain the infinitive versions of words as
-         * keys - references will link to the infinitive which can be found in this SortedDictionary, and
-         * further analysis can be done once the entry is found.
-         */
-        public SortedDictionary<string, Word> dictionary { get; set; }
-
-        public struct WordForm
-        {
-            public string rootWord { get; set; }
-            public string formIdentifier { get; set; }
-        }
-    }
-
-    class Word
-    {
-        // the infinitive Word in the Dictionary
-        public string word { get; set; }
-        // Whether or not the Word is aspirate - adjective forms and phonetics change.
-        public bool aspirate { get; set; }
-        /*
-         * The list of grammatical forms that this Word can have. For example, 'être':
-         * 'être' --> vi (verb intransitive) "to be".
-         * '(un) être' --> nm (noun masculin) "(a) being".
-         */
-        public List<GrammaticalForm> forms { get; set; }
-
-        public struct GrammaticalForm
-        {
-            // The grammatical identifier of the form (e.g., 'vi' or 'nm').
-            public string form { get; set; }
-            // The definition (meaning) of the Word in a particular form.
-            public string definition { get; set; }
+            prepositions = new List<string>();
+            transitive = false;
+            pronominal = false;
         }
 
-        // The table of noun conjugations, if the Word has a grammatical form of a noun.
-        public NounTable nounTable { get; set; }
-        // The table of adjective conjugations, if the Word has a grammatical form of an adjective.
-        public AdjectiveTable adjectiveTable { get; set; }
-        // The table of verb conjugations, if the Word has a grammatical form of a verb.
-        public VerbTable verbTable { get; set; }
+        public VerbTable(char GROUP, char AUX, bool TRANSITIVE, bool PRONOMINAL, params string[] PREPOSITIONS)
+            : base()
+        {//DD 020614
+            if (VerbTable.ValidGroup.Contains(GROUP) && VerbTable.ValidAUX.Contains(AUX))
+            {
+                group = GROUP;
+                auxillary = AUX;
 
-        public void printConjugationTables()
-        {
-            nounTable.printTable();
-            adjectiveTable.printTable();
-            verbTable.printTable();
+
+                transitive = TRANSITIVE;
+                pronominal = PRONOMINAL;
+
+                prepositions.AddRange(PREPOSITIONS);
+            }
+            else throw new ArgumentException("GROUP or AUX is invalid");
         }
-    }
 
-    abstract class ConjugationTable
-    {
-        public abstract void printTable();
-    }
-
-    class NounTable : ConjugationTable
-    {
-        /*
-         * The gender of the noun:
-         * 'ms' (masculin singular)
-         * 'fs' (feminin singular)
-         * 'mpl' (masculin plural)
-         * 'fpl' (feminin plural)
-         * gender --> 'm' (masculin), 'f' (feminin), 'b' (both, m & f)
-         */
-        public char gender { get; set; }
-        public string ms { get; set; }
-        public string fs { get; set; }
-        public string mpl { get; set; }
-        public string fpl { get; set; }
-
-        public override void printTable()
-        {
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Noun Inflection Table"));
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
-            Console.WriteLine(); Console.WriteLine();
-            Console.WriteLine("Gender            --> {0}", gender);
-            Console.WriteLine("Masculin singular --> {0}", ms);
-            Console.WriteLine("Feminin singular  --> {0}", fs);
-            Console.WriteLine("Masculin plural   --> {0}", mpl);
-            Console.WriteLine("Feminin plural    --> {0}", fpl);
-            Console.WriteLine(); Console.WriteLine();
-        }
-    }
-
-    class AdjectiveTable : ConjugationTable
-    {
-        /*
-         * The gender of the adjective:
-         * 'ms' (masculin singular)
-         * 'fs' (feminin singular)
-         * 'mpl' (masculin plural)
-         * 'fpl' (feminin plural)
-         * 'na' (non-aspirate)
-         */
-        public string ms { get; set; }
-        public string fs { get; set; }
-        public string mpl { get; set; }
-        public string fpl { get; set; }
-        public string na { get; set; }
-        /*
-         * The location of the adjective around the noun:
-         * 'b' (before)
-         * 'a' (after)
-         * 'n' (neutral) --> the adjective can come before OR after the noun.
-         */
-        public char location { get; set; }
-
-        public override void printTable()
-        {
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Adjective Inflection Table"));
-            Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "========================================"));
-            Console.WriteLine(); Console.WriteLine();
-            Console.WriteLine("Masculin singular --> {0}", ms);
-            Console.WriteLine("Feminin singular  --> {0}", fs);
-            Console.WriteLine("Masculin plural   --> {0}", mpl);
-            Console.WriteLine("Feminin plural    --> {0}", fpl);
-            Console.WriteLine("Non-aspirate      --> {0}", na);
-            Console.WriteLine("Location          --> {0}", location);
-            Console.WriteLine(); Console.WriteLine();
-        }
-    }
-
-    class VerbTable : ConjugationTable
-    {
         /* 
          * The group the verb belongs to:
          * 'f' (first) --> er.
@@ -195,7 +57,6 @@ namespace Language
          */
         public char auxillary { get; set; }
         // A list of grammatically-valid prepositions the verb can take.
-        //changed to list<string> type 2/14/14 Daniel; was string[]
         public List<string> prepositions { get; set; }
         // Whether or not the verb is transitive.
         public bool transitive { get; set; }
@@ -270,7 +131,7 @@ namespace Language
         }
     }
 
-    abstract class Indicative
+    public abstract class Indicative
     {
         public string fps { get; set; }
         public string sps { get; set; }
@@ -279,10 +140,29 @@ namespace Language
         public string spp { get; set; }
         public string tpp { get; set; }
 
+        public Indicative()
+        {//DD020614
+            fps = "";
+            sps = "";
+            tps = "";
+            fpp = "";
+            spp = "";
+            tpp = "";
+        }
+        public Indicative(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+        {//DD020614
+            fps = FPS;
+            sps = SPS;
+            tps = TPS;
+            fpp = FPP;
+            spp = SPP;
+            tpp = TPP;
+        }
+
         public abstract void printTable();
     }
 
-    abstract class Subjunctive
+    public abstract class Subjunctive
     {
         public string fps { get; set; }
         public string sps { get; set; }
@@ -291,10 +171,30 @@ namespace Language
         public string spp { get; set; }
         public string tpp { get; set; }
 
+        public Subjunctive()
+        {//DD020614
+            fps = "";
+            sps = "";
+            tps = "";
+            fpp = "";
+            spp = "";
+            tpp = "";
+        }
+
+        public Subjunctive(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+        {//DD020614
+            fps = FPS;
+            sps = SPS;
+            tps = TPS;
+            fpp = FPP;
+            spp = SPP;
+            tpp = TPP;
+        }
+
         public abstract void printTable();
     }
 
-    abstract class Conditional
+    public abstract class Conditional
     {
         public string fps { get; set; }
         public string sps { get; set; }
@@ -303,27 +203,75 @@ namespace Language
         public string spp { get; set; }
         public string tpp { get; set; }
 
+        public Conditional()
+        {//DD020614
+            fps = "";
+            sps = "";
+            tps = "";
+            fpp = "";
+            spp = "";
+            tpp = "";
+        }
+
+        public Conditional(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+        {//DD020614
+            fps = FPS;
+            sps = SPS;
+            tps = TPS;
+            fpp = FPP;
+            spp = SPP;
+            tpp = TPP;
+        }
+
         public abstract void printTable();
     }
 
-    abstract class Imperative
+    public abstract class Imperative
     {
         public string sps { get; set; }
         public string fpp { get; set; }
         public string spp { get; set; }
 
+        public Imperative()
+        {//DD020614
+            sps = "";
+            fpp = "";
+            spp = "";
+        }
+
+        public Imperative(string SPS, string FPP, string SPP)
+        {//DD020614
+            spp = SPS;
+            fpp = FPP;
+            spp = SPP;
+        }
+
         public abstract void printTable();
     }
 
-    class IndicativePresent : Indicative
+    public class IndicativePresent : Indicative
     {
+
+        public IndicativePresent()
+            : base()
+        { //DD 020614
+
+        }
+
+        public IndicativePresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614 
+
+        }
+
+
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Present"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -336,15 +284,26 @@ namespace Language
         }
     }
 
-    class IndicativeSimplePast : Indicative
+    public class IndicativeSimplePast : Indicative
     {
+        public IndicativeSimplePast()
+            : base()
+        {//DD 020614
+
+        }
+
+        public IndicativeSimplePast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Simple Past"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -357,15 +316,28 @@ namespace Language
         }
     }
 
-    class IndicativePresentPerfect : Indicative
+    public class IndicativePresentPerfect : Indicative
     {
+
+        public IndicativePresentPerfect()
+            : base()
+        { //DD 020614
+
+        }
+
+        public IndicativePresentPerfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Present Perfect"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "=========================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -378,15 +350,25 @@ namespace Language
         }
     }
 
-    class IndicativePastPerfect : Indicative
+    public class IndicativePastPerfect : Indicative
     {
+        public IndicativePastPerfect()
+            : base()
+        {//DD 020614 
 
+        }
+
+        public IndicativePastPerfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614 
+
+        }
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Past Perfect"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -399,15 +381,27 @@ namespace Language
         }
     }
 
-    class IndicativeImperfect : Indicative
+    public class IndicativeImperfect : Indicative
     {
+        public IndicativeImperfect()
+            : base()
+        {//DD 020614
+
+        }
+
+        public IndicativeImperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
+
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Imperfect"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "===================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -420,15 +414,23 @@ namespace Language
         }
     }
 
-    class IndicativePluperfect : Indicative
+    public class IndicativePluperfect : Indicative
     {
+        public IndicativePluperfect()
+            : base()
+        { }
+
+        public IndicativePluperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        { }
+
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Pluperfect"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "====================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -441,15 +443,27 @@ namespace Language
         }
     }
 
-    class IndicativeFuture : Indicative
+    public class IndicativeFuture : Indicative
     {
+
+        public IndicativeFuture()
+            : base()
+        {//DD 020614 
+
+        }
+
+        public IndicativeFuture(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Future"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -462,15 +476,27 @@ namespace Language
         }
     }
 
-    class IndicativePastFuture : Indicative
+    public class IndicativePastFuture : Indicative
     {
+
+        public IndicativePastFuture()
+            : base()
+        {//DD 020614
+
+        }
+
+        public IndicativePastFuture(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Indicative Past Future"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -483,15 +509,26 @@ namespace Language
         }
     }
 
-    class SubjunctivePresent : Subjunctive
+    public class SubjunctivePresent : Subjunctive
     {
+        public SubjunctivePresent()
+            : base()
+        { //DD 020614
+
+        }
+
+        public SubjunctivePresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        { //DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Present"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "==================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -504,15 +541,27 @@ namespace Language
         }
     }
 
-    class SubjunctivePast : Subjunctive
+    public class SubjunctivePast : Subjunctive
     {
+
+        public SubjunctivePast()
+            : base()
+        {//DD 020614
+
+        }
+
+        public SubjunctivePast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Past"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "================"));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -525,15 +574,27 @@ namespace Language
         }
     }
 
-    class SubjunctiveImperfect : Subjunctive
+    public class SubjunctiveImperfect : Subjunctive
     {
+
+        public SubjunctiveImperfect()
+            : base()
+        {//DD 020614
+
+        }
+
+        public SubjunctiveImperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Imperfect"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "====================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -546,15 +607,28 @@ namespace Language
         }
     }
 
-    class SubjunctivePluperfect : Subjunctive
+    public class SubjunctivePluperfect : Subjunctive
     {
+
+        public SubjunctivePluperfect()
+            : base()
+        {//DD 020614
+
+        }
+
+        public SubjunctivePluperfect(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
+
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Subjunctive Pluperfect"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -567,15 +641,26 @@ namespace Language
         }
     }
 
-    class ConditionalPresent : Conditional
+    public class ConditionalPresent : Conditional
     {
+        public ConditionalPresent()
+            : base()
+        {//DD 020614
+
+        }
+
+        public ConditionalPresent(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional Present"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "==================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -588,15 +673,30 @@ namespace Language
         }
     }
 
-    class ConditionalFirstPast : Conditional
+    public class ConditionalFirstPast : Conditional
     {
+
+        public ConditionalFirstPast()
+            : base()
+        {//DD 020614
+
+
+
+        }
+
+        public ConditionalFirstPast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
+
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional First Past"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================"));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -609,15 +709,29 @@ namespace Language
         }
     }
 
-    class ConditionalSecondPast : Conditional
+    public class ConditionalSecondPast : Conditional
     {
+
+        public ConditionalSecondPast()
+            : base()
+        {//DD 020614
+
+
+
+        }
+
+        public ConditionalSecondPast(string FPS, string SPS, string TPS, string FPP, string SPP, string TPP)
+            : base(FPS, SPS, TPS, FPP, SPP, TPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "Conditional Second Past"));
             Console.WriteLine(String.Format("{0," + Console.WindowWidth / 2 + "}", "======================="));
             Console.WriteLine();
-            if (Global.vowels.Contains('x'))
+            if (!String.IsNullOrEmpty(fps) && Global.vowels.Contains(fps[0]))
                 Console.WriteLine("J'         --> {0}", fps);
             else
                 Console.WriteLine("Je         --> {0}", fps);
@@ -630,8 +744,21 @@ namespace Language
         }
     }
 
-    class ImperativePresent : Imperative
+    public class ImperativePresent : Imperative
     {
+
+        public ImperativePresent()
+            : base()
+        {//DD 020614
+
+        }
+
+        public ImperativePresent(string SPS, string FPP, string SPP)
+            : base(SPS, FPP, SPP)
+        {//DD 020614
+
+        }
+
 
         public override void printTable()
         {
@@ -645,8 +772,20 @@ namespace Language
         }
     }
 
-    class ImperativePast : Imperative
+    public class ImperativePast : Imperative
     {
+
+        public ImperativePast()
+            : base()
+        {//DD 020614
+
+        }
+
+        public ImperativePast(string SPS, string FPP, string SPP)
+            : base(SPS, FPP, SPP)
+        {//DD 020614
+
+        }
 
         public override void printTable()
         {
@@ -660,10 +799,36 @@ namespace Language
         }
     }
 
-    class Infinitive
+    public class Infinitive
     {
         public string present { get; set; }
         public string past { get; set; }
+
+
+
+        /// <summary>
+        /// creates a blank Infinitive
+        /// </summary>
+        public Infinitive()
+        {//DD 020614
+            present = "";
+            past = "";
+
+        }
+
+
+        /// <summary>
+        /// creates a Infinitive
+        /// </summary>
+        /// <param name="pr">the present</param>
+        /// <param name="pa">the past</param>
+        public Infinitive(string pr, string pa)
+        {//DD 020614
+            present = pr;
+            past = pa;
+        }
+
+
 
         public void printTable()
         {
@@ -676,10 +841,36 @@ namespace Language
         }
     }
 
-    class Participle
+    public class Participle
     {
         public string present { get; set; }
         public string past { get; set; }
+
+        #region Construction
+
+        /// <summary>
+        /// creates a blank Participle
+        /// </summary>
+        public Participle()
+        {//DD 020614
+            present = "";
+            past = "";
+
+        }
+
+
+        /// <summary>
+        /// creates a Participle
+        /// </summary>
+        /// <param name="pr">the present</param>
+        /// <param name="pa">the past</param>
+        public Participle(string pr, string pa)
+        {//DD 020614
+            present = pr;
+            past = pa;
+        }
+
+        #endregion
 
         public void printTable()
         {

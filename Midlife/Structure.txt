@@ -1,0 +1,11 @@
+﻿Organizational Schema of Files (Project MIdLiFe)
+------------------------------------------------
+
+The following is a hierarchical (top-down) breakdown of the project structure (will update as more features are added)
+
+Global.cs        --> global data/functions to be used within the application (broken down by namespace)
+Midlife.cs       --> START of application; ENTRY point
+Dictionary.cs    --> dictionary-specific classes and functions
+Word.cs          --> word-specific classes and functions
+Inflections.cs   --> abstract class ('ConjugationTable') that encompasses nouns, adjectives and verbs. Noun/adjective-specific classes and functions
+Conjugations.cs  --> Verb-specific classes and functions. Note that verb terminations are held in Global.cs under namespace 'Grammar'

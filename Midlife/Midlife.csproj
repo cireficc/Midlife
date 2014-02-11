@@ -38,12 +38,16 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="dictBACKUP.cs" />
+    <Compile Include="Conjugations.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="Word.cs" />
+    <Compile Include="Inflections.cs" />
     <Compile Include="Dictionary.cs" />
     <Compile Include="Midlife.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Dict-FR_Standard.xml" />
+    <Content Include="Structure.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
