@@ -9,8 +9,7 @@ namespace Language
     public abstract class ConjugationTable
     {
         public ConjugationTable()
-        {//DD 020614
-            //DD this could be very usefull for optional serializing
+        {
         }
 
         public abstract void printTable();
@@ -72,6 +71,44 @@ namespace Language
             Console.WriteLine("Feminin plural    --> {0}", fpl);
             Console.WriteLine(); Console.WriteLine();
         }
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {
+            ms = reader["ms"];
+            fs = reader["fs"];
+            mpl = reader["mpl"];
+            fpl = reader["fpl"];
+            gender = reader["gender"][0];
+
+            if (reader.IsEmptyElement) reader.ReadStartElement();
+            else
+            {
+                reader.ReadStartElement();
+                reader.ReadEndElement();
+            }
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {
+            writer.WriteAttributeString("ms", ms);
+            writer.WriteAttributeString("fs", fs);
+            writer.WriteAttributeString("mpl", mpl);
+            writer.WriteAttributeString("fpl", fpl);
+            writer.WriteAttributeString("gender", "" + gender);
+        }
+        #endregion
     }
 
     public class AdjectiveTable : ConjugationTable
@@ -144,5 +181,50 @@ namespace Language
             Console.WriteLine("Location          --> {0}", location);
             Console.WriteLine(); Console.WriteLine();
         }
+
+
+        
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {
+            ms = reader["ms"];
+            fs = reader["fs"];
+            mpl = reader["mpl"];
+            fpl = reader["fpl"];
+            na = reader["na"];
+            location = reader["location"][0];
+
+            if (reader.IsEmptyElement) reader.ReadStartElement();
+            else
+            {
+                reader.ReadStartElement();
+                reader.ReadEndElement();
+            }
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {
+            writer.WriteAttributeString("ms", ms);
+            writer.WriteAttributeString("fs", fs);
+            writer.WriteAttributeString("mpl", mpl);
+            writer.WriteAttributeString("fpl", fpl);
+            writer.WriteAttributeString("na", na);
+            writer.WriteAttributeString("location", Convert.ToString(location));
+        }
+        #endregion
+
+       
     }
 }

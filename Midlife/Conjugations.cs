@@ -129,6 +129,248 @@ namespace Language
             infinitive.printTable();
             participle.printTable();
         }
+
+
+
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {
+            group = reader["group"][0];
+            auxillary = reader["auxillary"][0];
+
+            //read the prepositions delimited with space character             
+            prepositions.Clear();
+            prepositions.AddRange(reader["prepositions"].Split(' '));
+            //////////////////////////////////////////////////////
+
+            transitive = Convert.ToBoolean(reader["transitive"]);
+            pronominal = Convert.ToBoolean(reader["pronominal"]);
+
+
+            //start the fun
+            reader.ReadStartElement();//<Verb>
+
+
+            reader.ReadStartElement("Indicative");//we don't need the names but it will make the code more readable
+            
+            //reset
+            indicativePresent = new IndicativePresent();
+            indicativeSimplePast = new IndicativeSimplePast();
+            indicativePresentPerfect = new IndicativePresentPerfect();
+            indicativePastPerfect = new IndicativePastPerfect();
+            indicativeImperfect = new IndicativeImperfect();
+            indicativePluperfect = new IndicativePluperfect();
+            indicativeFuture = new IndicativeFuture();
+            indicativePastFuture = new IndicativePastFuture();
+
+            //set data
+            indicativePresent.readXML(reader);
+            indicativeSimplePast.readXML(reader);
+            indicativePresentPerfect.readXML(reader);
+            indicativePastPerfect.readXML(reader);
+            indicativeImperfect.readXML(reader);
+            indicativePluperfect.readXML(reader);
+            indicativeFuture.readXML(reader);
+            indicativePastFuture.readXML(reader);
+
+            reader.ReadEndElement();
+
+
+            reader.ReadStartElement("Subjunctive");///////////////////////////////////////
+
+            subjunctivePresent = new SubjunctivePresent();
+            subjunctivePast = new SubjunctivePast();
+            subjunctiveImperfect = new SubjunctiveImperfect();
+            subjunctivePluperfect = new SubjunctivePluperfect();
+            
+            subjunctivePresent.readXML(reader);
+            subjunctivePast.readXML(reader);
+            subjunctiveImperfect.readXML(reader);
+            subjunctivePluperfect.readXML(reader);           
+
+            reader.ReadEndElement();
+
+            
+            reader.ReadStartElement("Conditional");///////////////////////////////////////
+
+            conditionalPresent = new  ConditionalPresent();
+            conditionalFirstPast = new ConditionalFirstPast();
+            conditionalSecondPast = new ConditionalSecondPast();
+
+            conditionalPresent.readXML(reader);
+            conditionalFirstPast.readXML(reader);
+            conditionalSecondPast.readXML(reader);            
+
+            reader.ReadEndElement();
+
+            
+            reader.ReadStartElement("Imperative");////////////////////////////////////////
+
+            imperativePresent = new ImperativePresent();
+            imperativePast = new ImperativePast();
+
+            imperativePresent.readXML(reader);
+            imperativePast.readXML(reader);
+
+            reader.ReadEndElement();
+
+            
+
+            //we will not use the safe method for these empty elements
+
+
+            //infinitive //////////////////////////
+            infinitive.present = reader["present"];
+            infinitive.past = reader["past"];
+            reader.ReadStartElement("Infinitive");////////////////////////////////////////
+
+
+            //participle///////////////////////////
+            participle.present = reader["present"];
+            participle.past = reader["past"];
+            reader.ReadStartElement("Participle");////////////////////////////////////////
+
+
+            reader.ReadEndElement();//</verb>
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {
+            
+            //write attributes
+
+            writer.WriteAttributeString("group", new string(group,1));
+            writer.WriteAttributeString("auxillary", new string(auxillary, 1));           
+            
+            //write the prepositions delimited with space character           
+            string pre = "";
+            foreach(string s in prepositions)
+            {
+                pre +=  s + " ";
+            }
+            pre.TrimEnd(' ');//get rid of the trailing ' ' char
+            writer.WriteAttributeString("prepositions", pre);
+            /////////////////////////////////////////////////////////
+                        
+            writer.WriteAttributeString("transitive",Convert.ToString(transitive));
+            writer.WriteAttributeString("pronominal",Convert.ToString(pronominal));
+            
+
+            //element contents
+
+            writer.WriteStartElement("Indicative");////////////////////////////////////
+            writer.WriteStartElement("Present");
+            indicativePresent.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteStartElement("SimplePast");
+            indicativeSimplePast.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteStartElement("PresentPerfect");
+            indicativePresentPerfect.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteStartElement("PastPerfect");
+            indicativePastPerfect.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteStartElement("Imperfect");
+            indicativeImperfect.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteStartElement("Pluperfect");
+            indicativePluperfect.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteStartElement("Future");
+            indicativeFuture.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("PastFuture");
+            indicativePastFuture.writeXML(writer);
+            writer.WriteEndElement();
+            
+            writer.WriteEndElement();
+
+
+            writer.WriteStartElement("Subjunctive");////////////////////////////////////
+
+            writer.WriteStartElement("Present");
+            subjunctivePresent.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("Past");
+            subjunctivePast.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("Imperfect");
+            subjunctiveImperfect.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("Pluperfect");
+            subjunctivePluperfect.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteEndElement();
+
+
+            writer.WriteStartElement("Conditional");////////////////////////////////////
+
+            writer.WriteStartElement("Present");
+            conditionalPresent.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("FirstPast");
+            conditionalFirstPast.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("SecondPast");
+            conditionalSecondPast.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteEndElement();
+            
+
+            writer.WriteStartElement("Imperative");////////////////////////////////////
+
+            writer.WriteStartElement("Present");
+            imperativePresent.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("Past");
+            imperativePast.writeXML(writer);
+            writer.WriteEndElement();
+
+            writer.WriteEndElement();
+
+
+            writer.WriteStartElement("Infinitive");////////////////////////////////////
+            writer.WriteAttributeString("present", infinitive.present);
+            writer.WriteAttributeString("past", infinitive.past);
+            writer.WriteEndElement();
+
+
+            writer.WriteStartElement("Participle");////////////////////////////////////
+            writer.WriteAttributeString("present", participle.present);
+            writer.WriteAttributeString("past", participle.past);
+            writer.WriteEndElement();           
+
+        }
+        #endregion
+
     }
 
     public abstract class Indicative
@@ -160,6 +402,51 @@ namespace Language
         }
 
         public abstract void printTable();
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {
+            fps = reader["fps"];
+            sps = reader["sps"];
+            tps = reader["tps"];
+            fpp = reader["fpp"];
+            spp = reader["spp"];
+            tpp = reader["tpp"];
+
+            //check just incase
+            if (reader.IsEmptyElement) reader.ReadStartElement();
+            else
+            {
+                reader.ReadStartElement();
+                reader.ReadEndElement();
+            }
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {
+
+            writer.WriteAttributeString("fps", fps);
+            writer.WriteAttributeString("sps", sps);
+            writer.WriteAttributeString("tps", tps);
+            writer.WriteAttributeString("fpp", fpp);
+            writer.WriteAttributeString("spp", spp);
+            writer.WriteAttributeString("tpp", tpp);
+
+        }
+        #endregion
+
+        
     }
 
     public abstract class Subjunctive
@@ -192,6 +479,49 @@ namespace Language
         }
 
         public abstract void printTable();
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {
+            fps = reader["fps"];
+            sps = reader["sps"];
+            tps = reader["tps"];
+            fpp = reader["fpp"];
+            spp = reader["spp"];
+            tpp = reader["tpp"];
+
+            //check just incase
+            if (reader.IsEmptyElement) reader.ReadStartElement();
+            else
+            {
+                reader.ReadStartElement();
+                reader.ReadEndElement();
+            }
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {
+
+            writer.WriteAttributeString("fps", fps);
+            writer.WriteAttributeString("sps", sps);
+            writer.WriteAttributeString("tps", tps);
+            writer.WriteAttributeString("fpp", fpp);
+            writer.WriteAttributeString("spp", spp);
+            writer.WriteAttributeString("tpp", tpp);
+
+        }
+        #endregion
     }
 
     public abstract class Conditional
@@ -224,6 +554,49 @@ namespace Language
         }
 
         public abstract void printTable();
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {
+            fps = reader["fps"];
+            sps = reader["sps"];
+            tps = reader["tps"];
+            fpp = reader["fpp"];
+            spp = reader["spp"];
+            tpp = reader["tpp"];
+
+            //check just incase
+            if (reader.IsEmptyElement) reader.ReadStartElement();
+            else
+            {
+                reader.ReadStartElement();
+                reader.ReadEndElement();
+            }
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {
+
+            writer.WriteAttributeString("fps", fps);
+            writer.WriteAttributeString("sps", sps);
+            writer.WriteAttributeString("tps", tps);
+            writer.WriteAttributeString("fpp", fpp);
+            writer.WriteAttributeString("spp", spp);
+            writer.WriteAttributeString("tpp", tpp);
+
+        }
+        #endregion
     }
 
     public abstract class Imperative
@@ -247,6 +620,41 @@ namespace Language
         }
 
         public abstract void printTable();
+
+        #region XML Functions
+        //DD 02/15/2014
+        //a reader/writer pair to aid serialization in the Word class       
+
+        /// <summary>
+        /// reads the xml and sets all fields 
+        /// </summary>
+        /// <param name="reader">the xml reader to use for reading</param>
+        internal void readXML(System.Xml.XmlReader reader)
+        {           
+            sps = reader["sps"];          
+            fpp = reader["fpp"];
+            spp = reader["spp"];          
+
+            //check just incase
+            if (reader.IsEmptyElement) reader.ReadStartElement();
+            else
+            {
+                reader.ReadStartElement();
+                reader.ReadEndElement();
+            }
+        }
+
+        /// <summary>
+        /// writes this class to xml
+        /// </summary>
+        /// <param name="writer">the xml writer to use for writing</param>
+        internal void writeXML(System.Xml.XmlWriter writer)
+        {           
+            writer.WriteAttributeString("sps", sps);           
+            writer.WriteAttributeString("fpp", fpp);
+            writer.WriteAttributeString("spp", spp);
+        }
+        #endregion
     }
 
     public class IndicativePresent : Indicative
