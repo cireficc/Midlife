@@ -2,4 +2,14 @@
 
 do what you want with it to test concepts and experiment
 
-this project will be deleted when playing with xml serialization is no longer needed.
+this project will be deleted when Testing with xml serialization is no longer needed.
+
+
+2/15/14
+
+Example of optional serilization and deserialization
+program.cs Edit code in area marked.
+ lines 51 & 52
+
+
+

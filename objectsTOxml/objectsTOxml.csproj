@@ -42,9 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdjectiveLite.cs" />
-    <Compile Include="Conjugation.cs" />
-    <Compile Include="NounLite.cs" />
+    <Compile Include="AdjectiveWrapper.cs" />
+    <Compile Include="NounWrapper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WordLite.cs" />
@@ -54,6 +53,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Midlife\Midlife.csproj">
+      <Project>{57fd4602-cf0e-4d0b-a36b-f648e03ab238}</Project>
+      <Name>Midlife</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
