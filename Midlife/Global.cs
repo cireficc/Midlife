@@ -25,78 +25,192 @@ namespace Language
             {
                 Adjective,
                 Adverb,
+                Auxiliary,
                 Noun,
                 Preposition,
                 Pronoun,
                 Verb
             }
+
         }
+
         namespace Adjective
         {
             enum Gender
             {
-                Masculine,
                 Feminine,
-                MasculineFeminine
+                Invariable,
+                Masculine,
+                MasculineFeminine,
+                VowelNonAspirate
             }
 
             enum Number
             {
-                Singular,
-                Plural
+                Invariable,
+                Plural,
+                Singular
             }
 
             enum Location
             {
-                Before,
-                After,
-                Both
+                After, // normal, regular
+                Before, // B.A.G.S
+                Invariable // figurative vs literal
+            }
+
+            enum Type
+            {
+                Descriptive, // couleurs, beauté
+                Demonstrative, // ce, cette, ces, cet
+                Indefinite, // autre(s), certain(e)(s)
+                IndefiniteNegative, // ne... aucun(e), ne... pas un(e)
+                Interrogative, // quel, quels, quelle, quelles
+                ParticiplePresent, // interessant, glissant
+                ParticiplePast, // étonné, 
+                Possessive, // mon, ma, mes, ton, ta, tes
+            }
+
+            struct Descriptor
+            {
+                Gender gender;
+                Number number;
+                Location location;
+                Type type;
             }
         }
         namespace Adverb
         {
-            
+            enum Something
+            {
+                // Stuff
+            }
+
+            struct Descriptor
+            {
+                // Stuff
+            }
+        }
+
+        namespace Auxiliary
+        {
+            enum Type
+            {
+                Avoir,
+                Etre
+            }
         }
         namespace Noun
         {
             enum Gender
             {
-                Masculine,
                 Feminine,
-                MasculineFeminine
+                Invariable,
+                Masculine,
+                MasculineFeminine,
+                VowelNonAspirate
             }
 
             enum Number
             {
-                Singular,
-                Plural
+                Invariable,
+                Plural,
+                Singular
+            }
+
+            struct Descriptor
+            {
+                Gender gender;
+                Number number;
             }
         }
         namespace Preposition
         {
-            // Stuff
+            enum Something
+            {
+                // Stuff
+            }
+            
+            struct Descriptor
+            {
+                // Stuff
+            }
         }
+
         namespace Pronoun
         {
-            enum PronounType
+            enum Type
             {
                 Subject,
                 Reflexive,
                 DirectObject,
                 IndirectObject,
-                Disjunctive
+                Disjunctive // Emphatic, stressed
             }
 
-            enum PronounReplaces
+            enum Replaces
             {
                 DefiniteDirectObject,
                 IndirectObject,
                 IndefiniteDirectObject
             }
+
+            struct Descriptor
+            {
+                Type type;
+                Replaces replaces;
+            }
         }
+
         namespace Verb
         {
-            // Adding stuff later
+            enum Mood
+            {
+                Indicative,
+                Subjunctive,
+                Conditional,
+                Imperative,
+                Infinitive,
+                Participle
+            }
+
+            enum Tense
+            {
+                Present, // Présent
+                Past, // Passé composé
+                Imperfect, // Imparfait
+                Pluperfect, // Plus-que-parfait
+                FutureSimple, // Futur simple
+                FuturePast, // Futur antérieur
+                LiteraryImperfect, // Passé simple
+                LiteraryPluperfect, // Passé antérieur
+                SecondPast, // Conditionnel passé II
+            }
+
+            enum Transitivity
+            {
+                Intransitive,
+                Transitive,
+                TransitiveIntransitive,
+                TransitiveInseparable,
+                TransitiveSeparable
+            }
+
+            enum Pronominality
+            {
+                Idiomatic, // e.g. s'amuser
+                Reciprical, // e.g. se raser
+                Reflexive // e.g. s'aimer
+            }
+
+            struct Descriptor
+            {
+                Mood mood;
+                Tense tense;
+                Transitivity transitivity;
+                Pronominality pronominality;
+                Auxiliary.Type auxiliary;
+            }
         }
     }
 }
